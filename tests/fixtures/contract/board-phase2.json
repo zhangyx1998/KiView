@@ -1,0 +1,338 @@
+{
+  "name": "Hierarchy",
+  "title": "Hierarchy",
+  "model": {
+    "url": "/board-assets/Hierarchy/model/00b4c21224ede7bb/model.wrl",
+    "format": "vrml",
+    "bytes": 408325
+  },
+  "layers": [
+    {
+      "id": "B.CrtYd",
+      "name": "Back courtyard",
+      "kind": "courtyard",
+      "side": "back",
+      "color": "#26e9ff",
+      "order": 0,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_CrtYd.svg"
+    },
+    {
+      "id": "B.Fab",
+      "name": "Back fabrication",
+      "kind": "fab",
+      "side": "back",
+      "color": "#88a0d0",
+      "order": 1,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Fab.svg"
+    },
+    {
+      "id": "B.SilkS",
+      "name": "Back silkscreen",
+      "kind": "silkscreen",
+      "side": "back",
+      "color": "#e8b2a7",
+      "order": 2,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_SilkS.svg"
+    },
+    {
+      "id": "B.Paste",
+      "name": "Back paste",
+      "kind": "paste",
+      "side": "back",
+      "color": "#00c2c2",
+      "order": 3,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Paste.svg"
+    },
+    {
+      "id": "B.Mask",
+      "name": "Back solder mask",
+      "kind": "mask",
+      "side": "back",
+      "color": "#02ffee",
+      "order": 4,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Mask.svg"
+    },
+    {
+      "id": "B.Cu",
+      "name": "Back copper",
+      "kind": "copper",
+      "side": "back",
+      "color": "#4d7fc4",
+      "order": 5,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Cu.svg"
+    },
+    {
+      "id": "F.Cu",
+      "name": "Front copper",
+      "kind": "copper",
+      "side": "front",
+      "color": "#c83434",
+      "order": 6,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Cu.svg"
+    },
+    {
+      "id": "F.Mask",
+      "name": "Front solder mask",
+      "kind": "mask",
+      "side": "front",
+      "color": "#d864ff",
+      "order": 7,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Mask.svg"
+    },
+    {
+      "id": "F.Paste",
+      "name": "Front paste",
+      "kind": "paste",
+      "side": "front",
+      "color": "#b4a0a0",
+      "order": 8,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Paste.svg"
+    },
+    {
+      "id": "F.SilkS",
+      "name": "Front silkscreen",
+      "kind": "silkscreen",
+      "side": "front",
+      "color": "#f2eda1",
+      "order": 9,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_SilkS.svg"
+    },
+    {
+      "id": "F.Fab",
+      "name": "Front fabrication",
+      "kind": "fab",
+      "side": "front",
+      "color": "#afafaf",
+      "order": 10,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Fab.svg"
+    },
+    {
+      "id": "F.CrtYd",
+      "name": "Front courtyard",
+      "kind": "courtyard",
+      "side": "front",
+      "color": "#ff26e2",
+      "order": 11,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_CrtYd.svg"
+    },
+    {
+      "id": "Edge.Cuts",
+      "name": "Edge cuts",
+      "kind": "edge",
+      "side": "both",
+      "color": "#e6e8e3",
+      "order": 12,
+      "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/Edge_Cuts.svg"
+    }
+  ],
+  "bounds": {
+    "x": 99,
+    "y": 99,
+    "width": 42,
+    "height": 27
+  },
+  "size": {
+    "width": 40,
+    "height": 25
+  },
+  "thumbnail": {
+    "url": "/board-assets/Hierarchy/thumbnail/3e4a7d535c66600b/thumbnail.png",
+    "width": 440,
+    "height": 335
+  },
+  "copperLayers": 2,
+  "revision": "6e190ec276be",
+  "maskColor": "Red",
+  "titleBlock": {
+    "title": "Hierarchy",
+    "rev": "A",
+    "date": "2026-10-09",
+    "company": "KiView samples (CC0 1.0)",
+    "comments": [
+      "KiCad 8 file format, 3-level hierarchy with sheets in channels/"
+    ]
+  },
+  "kicad": {
+    "formatVersion": 20240108,
+    "minKicad": 8,
+    "exportedWith": "10.0.6",
+    "backend": "cli-modern"
+  },
+  "files": {
+    "pcb": "Hierarchy/Hierarchy.kicad_pcb",
+    "sch": "Hierarchy/Hierarchy.kicad_sch",
+    "pro": "Hierarchy/Hierarchy.kicad_pro"
+  },
+  "features": {
+    "layers": {
+      "available": true
+    },
+    "model3d": {
+      "available": true
+    },
+    "thumbnail": {
+      "available": true
+    },
+    "schematic": {
+      "available": true
+    },
+    "bom": {
+      "available": true
+    },
+    "crossProbe": {
+      "available": true
+    },
+    "netlist": {
+      "available": true
+    },
+    "fab": {
+      "available": true
+    },
+    "drc": {
+      "available": true
+    },
+    "erc": {
+      "available": true
+    },
+    "stats": {
+      "available": true
+    }
+  },
+  "rev": {
+    "hash": "6e190ec276be",
+    "titleBlock": "A",
+    "version": "0.1.0",
+    "git": {
+      "commit": "870690f000000000000000000000000000000000",
+      "short": "870690f",
+      "tag": "v0.1.0",
+      "dirty": false,
+      "date": "2026-10-09T00:00:00Z"
+    },
+    "label": "0.1.0"
+  },
+  "schematic": {
+    "sheets": [
+      {
+        "path": "/",
+        "name": "Hierarchy",
+        "source": "Hierarchy.kicad_sch",
+        "page": "1",
+        "parent": null,
+        "url": "/board-assets/Hierarchy/schematic/0123456789abcdef/sheet-1.svg",
+        "titleBlock": {
+          "title": "Hierarchy",
+          "rev": "A",
+          "date": "2026-10-09",
+          "company": null,
+          "comments": []
+        },
+        "symbols": [
+          {
+            "ref": "J1",
+            "bbox": {
+              "x": 44.45,
+              "y": 73.66,
+              "width": 7.62,
+              "height": 7.62
+            }
+          }
+        ]
+      },
+      {
+        "path": "/2f0e6c1a-0000-4000-a000-000000000001/",
+        "name": "Channel A",
+        "source": "channels/channel.kicad_sch",
+        "page": "2",
+        "parent": "/",
+        "url": "/board-assets/Hierarchy/schematic/0123456789abcdef/sheet-2.svg",
+        "titleBlock": {
+          "title": "Channel",
+          "rev": "A",
+          "date": null,
+          "company": null,
+          "comments": []
+        },
+        "symbols": [
+          {
+            "ref": "R1",
+            "bbox": {
+              "x": 62.23,
+              "y": 71.12,
+              "width": 2.54,
+              "height": 10.16
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "bom": {
+    "url": "/board-assets/Hierarchy/bom/0123456789abcdef/bom.json",
+    "bytes": 812
+  },
+  "parts": {
+    "url": "/board-assets/Hierarchy/parts/0123456789abcdef/parts.json",
+    "bytes": 2048
+  },
+  "netlist": {
+    "url": "/board-assets/Hierarchy/netlist/0123456789abcdef/netlist.json",
+    "bytes": 1024
+  },
+  "stats": {
+    "size": {
+      "width": 40,
+      "height": 25
+    },
+    "copperLayers": 2,
+    "thickness": 1.6,
+    "footprints": {
+      "front": 5,
+      "back": 0,
+      "smd": 4,
+      "tht": 1
+    },
+    "pads": 10,
+    "vias": 2,
+    "holes": {
+      "plated": 4,
+      "nonPlated": 0,
+      "minDiameter": 0.3
+    },
+    "minTrack": 0.25,
+    "minClearance": 0.2
+  },
+  "reports": {
+    "drc": {
+      "url": "/board-assets/Hierarchy/drc/0123456789abcdef/drc.json",
+      "counts": {
+        "error": 0,
+        "warning": 5,
+        "exclusion": 0,
+        "info": 0
+      }
+    },
+    "erc": {
+      "url": "/board-assets/Hierarchy/erc/0123456789abcdef/erc.json",
+      "counts": {
+        "error": 0,
+        "warning": 6,
+        "exclusion": 0,
+        "info": 0
+      }
+    }
+  },
+  "download": {
+    "url": "/board-assets/Hierarchy/fab/0123456789abcdef/Hierarchy-fab.zip",
+    "filename": "Hierarchy-fab.zip",
+    "bytes": 40960,
+    "status": "incomplete",
+    "missing": [
+      "pick-and-place"
+    ],
+    "contents": [
+      "Gerbers",
+      "Drill"
+    ]
+  }
+}

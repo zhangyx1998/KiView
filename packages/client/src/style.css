@@ -1,0 +1,136 @@
+/* Design tokens. Dark is the default; [data-theme='light'] (set by site.ts from the
+   config's theme.appearance, the system setting for 'auto', or the theme toggle)
+   swaps in the light set. Components use only these tokens for surface colours. */
+:root {
+  --bg: #101216;
+  --panel: #171a1f;
+  --panel-2: #1d2128;
+  --line: #2a2f37;
+  --line-strong: #3a414b;
+  --text: #d6dae0;
+  --muted: #8a919b;
+  --accent: #5aa7ff;
+  /* pressed toggle, current list item */
+  --pressed-bg: #24364d;
+  --pressed-line: #2f4f75;
+  --current-bg: #1f2c3c;
+  /* the layer canvas, the 3D view, card thumbnails */
+  --canvas-bg: #0b0c0e;
+  --view3d-bg: radial-gradient(ellipse at 50% 42%, #232932 0%, #0e1013 85%);
+  --thumb-bg: radial-gradient(ellipse at 50% 40%, #262b33 0%, #15181d 75%);
+  --icon-bg: #0d0f12;
+  /* translucent surfaces over a canvas */
+  --float-bg: rgba(29, 33, 40, 0.82);
+  --card-bg: rgba(23, 26, 31, 0.92);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --scrim: rgba(0, 0, 0, 0.45);
+  /* severities, highlight */
+  --error: #ff7a7a;
+  --warning: #e7c169;
+  --ok: #6fcf8f;
+  --excluded: #8a919b;
+  --highlight: #ffe14d;
+  --side-tag: #9cc4ff;
+  /* cross-probe selection (P2-b), BOM table */
+  --select: #ff9a1f;
+  --select-bg: #2a2416;
+  --select-ink: #14110b;
+  --select-pad-line: #ffd29a;
+  --chip-bg: #202733;
+  --chip-line: #2c3644;
+  --row-line: #1e2228;
+  --row-hover: #161a20;
+  --dnp: #e0a050;
+  /* assembly mode: pin-1 / cathode marks, placed parts, part notes */
+  --pin1: #ff4fd8;
+  --pin1-ring: #ffffff;
+  --ok-bg: #18301f;
+  --ok-ink: #0b1a10;
+  --note-bg: #2a2416;
+  --sheet-surround: #2a2d33;
+  --on-canvas-text: #c4c8ce;
+  --on-canvas-shadow: #000;
+  --radius: 6px;
+  --topbar-h: 44px;
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --panel-2: #f0f2f5;
+  --line: #d9dde3;
+  --line-strong: #b9c0ca;
+  --text: #1d2229;
+  --muted: #5f6873;
+  --accent: #1f6fd1;
+  --pressed-bg: #dbe9fb;
+  --pressed-line: #8db6e8;
+  --current-bg: #e6effa;
+  --canvas-bg: #f4f3ee;
+  --view3d-bg: radial-gradient(ellipse at 50% 42%, #ffffff 0%, #dfe3e8 85%);
+  --thumb-bg: radial-gradient(ellipse at 50% 40%, #ffffff 0%, #e3e6ea 75%);
+  --icon-bg: #eceef1;
+  --float-bg: rgba(255, 255, 255, 0.85);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --shadow: rgba(20, 30, 45, 0.18);
+  --scrim: rgba(20, 30, 45, 0.3);
+  --error: #c62828;
+  --warning: #9a6a00;
+  --ok: #2e7d32;
+  --excluded: #6b7480;
+  --highlight: #e0007a;
+  --side-tag: #1f6fd1;
+  --select: #e07800;
+  --select-bg: #fff1dc;
+  --select-ink: #ffffff;
+  --select-pad-line: #a85a00;
+  --chip-bg: #eef1f5;
+  --chip-line: #cdd3db;
+  --row-line: #e6e9ee;
+  --row-hover: #f3f5f8;
+  --dnp: #a35f00;
+  --pin1: #c2009e;
+  --pin1-ring: #ffffff;
+  --ok-bg: #e3f4e6;
+  --ok-ink: #ffffff;
+  --note-bg: #fff4dc;
+  --sheet-surround: #e3e6ea;
+  --on-canvas-text: #3a414b;
+  --on-canvas-shadow: #fff;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #app { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 var(--font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 3px 10px;
+  cursor: pointer;
+}
+button:hover { border-color: var(--line-strong); }
+button[aria-pressed='true'] { background: var(--pressed-bg); border-color: var(--pressed-line); }
+
+code, .mono { font-family: var(--mono); font-size: 12px; }
+
+/* an inline SVG icon inside a button */
+.icon-btn { display: inline-grid; place-items: center; padding: 3px 7px; }
+.icon-btn svg { width: 16px; height: 16px; display: block; }

@@ -1,0 +1,3 @@
+RECONSTRUCTED (not captured) from gitlab.com/kicad/code/kicad tag 8.0.0, kicad/cli/*.{cpp,h},
+by tests/fixtures/help/tool.ts reconstruct. Layout approximates KiCad's argparse;
+subcommands and flags are what the sources register.

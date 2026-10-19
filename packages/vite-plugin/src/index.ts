@@ -1,0 +1,252 @@
+// @kiview/vite-plugin: discovers KiCad projects, exports them through
+// @kiview/kicad into a content-addressed cache (pipeline.ts, stages/), and
+// exposes the result to the client as two virtual modules (contract.ts):
+//   virtual:kiview/boards  -> { boards: Board[] }
+//   virtual:kiview/site    -> { site: SiteData }
+//
+// Dev: assets are served from the cache under <base>board-assets/, project files
+// are watched and re-exported on change (full reload for core stages, an HMR event
+// carrying the updated Board for late ones). Build: the same files are emitted
+// into <outDir>/board-assets/<Name>/<stage>/<key>/...
+
+import { readFileSync } from 'node:fs'
+import { readFile } from 'node:fs/promises'
+import { basename, dirname, extname, isAbsolute, resolve, sep } from 'node:path'
+
+import { openKicad } from '@kiview/kicad'
+import type { Plugin, ResolvedConfig as ViteResolvedConfig, ViteDevServer } from 'vite'
+
+import { resolveConfig, type ResolvedConfig, type UserConfig } from './config.ts'
+import { BOARD_EVENT, BOARDS_MODULE, SITE_MODULE, STATUS_PATH, type BoardEvent, type SiteData } from './contract.ts'
+import { isProjectFile } from './discover.ts'
+import { ASSET_DIR, Pipeline, type Logger } from './pipeline.ts'
+
+export { defineConfig, resolveConfig } from './config.ts'
+export type * from './config.ts'
+export type * from './contract.ts'
+export { Pipeline, type Logger } from './pipeline.ts'
+export type { Stage, StageContext, StageInput, StageOutput, StageRecord, BoardSource, Snapshot } from './stages/types.ts'
+
+const VERSION: string = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version
+const SITE_ASSETS = 'site-assets'
+
+const CONTENT_TYPES: Record<string, string> = {
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.glb': 'model/gltf-binary',
+  '.wrl': 'model/vrml',
+  '.json': 'application/json',
+  '.zip': 'application/zip',
+  '.pdf': 'application/pdf',
+}
+
+export interface PluginOptions {
+  /** A config already resolved (the CLI passes this). */
+  resolved?: ResolvedConfig
+  /** Or a user config, resolved against `root` (default: the Vite root). */
+  config?: UserConfig
+  root?: string
+}
+
+export default function kiview(options: PluginOptions = {}): Plugin {
+  let vite: ViteResolvedConfig
+  let config: ResolvedConfig
+  let log: Logger
+  let pipeline: Promise<Pipeline> | null = null
+  let server: ViteDevServer | null = null
+  let building = false
+
+  const ids = { boards: '\0' + BOARDS_MODULE, site: '\0' + SITE_MODULE }
+
+  function getPipeline(): Promise<Pipeline> {
+    pipeline ??= (async () => {
+      const kit = await openKicad(config.kicad)
+      log.info(`KiCad: ${kit.describe()}`)
+      const p = new Pipeline(config, kit, log)
+      p.onLate = name => pushBoard(p, name)
+      return p
+    })()
+    return pipeline
+  }
+
+  async function ready(): Promise<Pipeline> {
+    const p = await getPipeline()
+    await p.ensureReady(building)
+    syncNotesFiles(p)   // [assembly]
+    return p
+  }
+
+  /** The logo: URLs as they are, local files served / emitted under site-assets/. */
+  function logo(): { url: string; file: string | null } | null {
+    const l = config.logo
+    if (!l) return null
+    if (/^(https?:|data:|\/\/)/.test(l)) return { url: l, file: null }
+    const file = isAbsolute(l) ? l : resolve(config.root, l)
+    return { url: `${config.base}${SITE_ASSETS}/${basename(file)}`, file }
+  }
+
+  async function siteData(): Promise<SiteData> {
+    const p = await getPipeline()
+    return {
+      title: config.title,
+      description: config.description,
+      logo: logo()?.url ?? null,
+      theme: config.theme,
+      generator: { name: 'kiview', version: VERSION },
+      kicad: p.kit.describe(),
+    }
+  }
+
+  // ---- dev: watching and pushing ------------------------------------------------
+
+  const pending = new Map<string, ReturnType<typeof setTimeout>>()
+  let chain: Promise<unknown> = Promise.resolve()
+  const ALL = '\0all'
+
+  function schedule(name: string): void {
+    clearTimeout(pending.get(name))
+    pending.set(name, setTimeout(() => {
+      pending.delete(name)
+      // serialise refreshes; each re-discovers so added / removed boards are picked up
+      chain = chain.then(async () => {
+        const p = await ready()
+        let changed: boolean
+        if (name === ALL) changed = await p.refreshAll()
+        else {
+          const src = (await p.discover()).find(s => s.name === name)
+          changed = src ? await p.refresh(src) : p.entries.delete(name)
+        }
+        if (changed) reload()
+      }).catch(e => log.error(String(e)))
+    }, 300))
+  }
+
+  function invalidate(): void {
+    const graph = server?.environments?.client?.moduleGraph
+    const mod = graph?.getModuleById(ids.boards)
+    if (mod) graph!.invalidateModule(mod)
+  }
+
+  function reload(): void {
+    if (!server) return
+    invalidate()
+    server.ws.send({ type: 'full-reload' })
+    log.info('boards changed, page reloaded')
+  }
+
+  function pushBoard(p: Pipeline, name: string): void {
+    if (!server) return
+    invalidate()
+    const data: BoardEvent = { name, board: p.board(name) }
+    server.ws.send({ type: 'custom', event: BOARD_EVENT, data })
+  }
+
+  /** Assembly notes file names of the boards (config assembly.notesFile), watched like project files. */
+  let notesFiles: string[] = []
+  const syncNotesFiles = (p: Pipeline) => {
+    notesFiles = [...new Set([...p.entries.values()].map(e => config.assembly(e.src.name).notesFile).filter((f): f is string => !!f).map(f => basename(f)))]
+  }
+
+  function onFsEvent(kind: 'change' | 'add' | 'unlink' | 'dir', file: string): void {
+    if (file.startsWith(config.cacheDir + sep) || file.startsWith(config.outDir + sep)) return
+    if (kind === 'dir') { schedule(ALL); return }
+    if (!isProjectFile(file, notesFiles)) return
+    if (kind !== 'change' && file.endsWith('.kicad_pcb')) { schedule(ALL); return }
+    void getPipeline().then(p => {
+      for (const e of p.entries.values()) if (dirname(file) === e.src.dir || (file.startsWith(e.src.dir + sep) && file.endsWith('.kicad_sch'))) schedule(e.src.name)
+    })
+  }
+
+  return {
+    name: 'kiview',
+
+    configResolved(c) {
+      vite = c
+      building = c.command === 'build'
+      config = options.resolved ?? resolveConfig({ base: c.base, ...options.config }, options.root ?? c.root)
+      const tag = '\x1b[36m[kiview]\x1b[0m'
+      log = {
+        info: m => vite.logger.info(`${tag} ${m}`, { timestamp: true }),
+        warn: m => vite.logger.warn(`\x1b[33m[kiview]\x1b[0m ${m}`, { timestamp: true }),
+        error: m => vite.logger.error(`\x1b[31m[kiview]\x1b[0m ${m}`, { timestamp: true }),
+      }
+    },
+
+    resolveId(id) {
+      if (id === BOARDS_MODULE) return ids.boards
+      if (id === SITE_MODULE) return ids.site
+      return undefined
+    },
+
+    async load(id) {
+      if (id === ids.boards) return `export const boards = ${JSON.stringify((await ready()).boards())}\n`
+      if (id === ids.site) return `export const site = ${JSON.stringify(await siteData())}\n`
+      return undefined
+    },
+
+    transformIndexHtml(html) {
+      const esc = (s: string) => s.replace(/[&<>"]/g, ch => `&#${ch.charCodeAt(0)};`)
+      return html.replace(/<title>[^<]*<\/title>/, `<title>${esc(config.title)}</title>`)
+    },
+
+    configureServer(s) {
+      server = s
+      void ready()
+      s.watcher.add(config.root)
+      s.watcher
+        .on('change', f => onFsEvent('change', f))
+        .on('add', f => onFsEvent('add', f))
+        .on('unlink', f => onFsEvent('unlink', f))
+        .on('addDir', f => onFsEvent('dir', f))
+        .on('unlinkDir', f => onFsEvent('dir', f))
+
+      const assets = `${config.base}${ASSET_DIR}/`
+      s.middlewares.use(async (req, res, next) => {
+        const url = (req.url ?? '').split('?')[0]!
+        if (url === `${config.base}${STATUS_PATH}`) {
+          const p = await ready()
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify({ kicad: p.kit.installs.map(i => ({ ...i, help: undefined })), boards: p.boards(), status: p.status() }, null, 2))
+          return
+        }
+        const l = logo()
+        if (l?.file && url === new URL(l.url, 'http://x').pathname) {
+          try { res.setHeader('Content-Type', CONTENT_TYPES[extname(l.file)] ?? 'application/octet-stream'); res.end(await readFile(l.file)) }
+          catch { res.statusCode = 404; res.end() }
+          return
+        }
+        if (!url.startsWith(assets)) return next()
+        const rel = decodeURIComponent(url.slice(assets.length))
+        const file = resolve(config.cacheDir, rel)
+        if (!file.startsWith(config.cacheDir + sep) || rel.split('/').some(p => p.startsWith('.'))) {
+          res.statusCode = 403; res.end(); return
+        }
+        try {
+          const body = await readFile(file)
+          res.setHeader('Content-Type', CONTENT_TYPES[extname(file)] ?? 'application/octet-stream')
+          res.setHeader('Content-Length', body.length)
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+          if (extname(file) === '.zip') res.setHeader('Content-Disposition', `attachment; filename="${basename(file)}"`)
+          res.end(body)
+        } catch {
+          res.statusCode = 404; res.end()
+        }
+      })
+    },
+
+    async generateBundle() {
+      const p = await ready()
+      for (const [fileName, path] of p.assetFiles()) this.emitFile({ type: 'asset', fileName, source: await readFile(path) })
+      const l = logo()
+      if (l?.file) this.emitFile({ type: 'asset', fileName: `${SITE_ASSETS}/${basename(l.file)}`, source: await readFile(l.file) })
+      // static hosts that read _headers (Cloudflare Pages, Netlify): serve zips as downloads
+      const headers = p.boards().filter(b => b.download).map(b =>
+        `${b.download!.url}\n  Content-Type: application/zip\n  Content-Disposition: attachment; filename="${b.download!.filename}"\n`)
+      if (headers.length) this.emitFile({ type: 'asset', fileName: '_headers', source: headers.join('\n') })
+      const failed = [...p.entries.values()].filter(e => e.error || [...e.stages.values()].some(s => s.error)).map(e => e.src.name)
+      if (failed.length) log.warn(`built with export failures: ${failed.join(', ')} (details above)`)
+    },
+  }
+}

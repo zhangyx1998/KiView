@@ -1,0 +1,422 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "294307e5-6ac0-4dda-a40b-d4458e3639a2")
+	(paper "A4")
+	(title_block
+		(title "Hierarchy")
+		(date "2026-10-09")
+		(rev "A")
+		(company "KiView samples (CC0 1.0)")
+		(comment 1 "KiCad 8 file format, 3-level hierarchy with sheets in channels/")
+	)
+	(lib_symbols
+		(symbol "Samples:Conn_01x02"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_0_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "Conn_01x02_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(text "Hierarchy sample: two instances of channels/channel.kicad_sch, each with channels/led.kicad_sch inside."
+		(at 30.48 25.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2c102c11-1e33-4a7b-a035-e1c609796f4f")
+	)
+	(wire
+		(pts
+			(xy 45.72 76.2)
+			(xy 43.18 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdd73818-b6fa-420d-ab80-e0e6b39dbabf")
+	)
+	(label "VIN"
+		(at 43.18 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fffc22b3-5ee0-4934-aae1-395ff9fa0ee3")
+	)
+	(wire
+		(pts
+			(xy 45.72 78.74)
+			(xy 43.18 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "decafbbb-cc26-4c4c-a090-6469c7972956")
+	)
+	(label "GND"
+		(at 43.18 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bdb5605c-6297-4ae0-adcc-f19aee931b94")
+	)
+	(wire
+		(pts
+			(xy 88.9 66.04)
+			(xy 86.36 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "542ba4fa-7488-4a7f-aee7-ef0adb75eb51")
+	)
+	(label "VIN"
+		(at 86.36 66.04 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d66b3485-8265-48ba-abdc-c9c33dcf8daa")
+	)
+	(wire
+		(pts
+			(xy 88.9 68.58)
+			(xy 86.36 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "404d0d4b-77cd-446f-a24b-1784b3039017")
+	)
+	(label "GND"
+		(at 86.36 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cef79647-68b2-4ed7-aafd-fcb3dc692bd1")
+	)
+	(wire
+		(pts
+			(xy 88.9 91.44)
+			(xy 86.36 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f50063d1-cd74-4d44-a5f5-a77dc759a2b0")
+	)
+	(label "VIN"
+		(at 86.36 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4c52c800-282e-427e-a8b7-637df951041d")
+	)
+	(wire
+		(pts
+			(xy 88.9 93.98)
+			(xy 86.36 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8feabeb2-4ad9-43c4-ae3c-9334ba9624cf")
+	)
+	(label "GND"
+		(at 86.36 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ff8eac4e-05d1-4a68-ab47-d82ab12d6d25")
+	)
+	(symbol
+		(lib_id "Samples:Conn_01x02")
+		(at 50.8 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "33e89ac0-6689-4478-a1d1-e0cdf3eced4e")
+		(property "Reference" "J1"
+			(at 50.8 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VIN"
+			(at 50.8 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Samples:PinHeader_1x02"
+			(at 50.8 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 50.8 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "eb8d1b98-ce01-43d8-aeb6-f50f3274a8ee")
+		)
+		(pin "2"
+			(uuid "910f680e-7329-4c8b-a6a8-1075fb041928")
+		)
+		(instances
+			(project "Hierarchy"
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 63.5)
+		(size 25.4 10.16)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "b3608696-9695-424e-a500-8b9c7197eabe")
+		(property "Sheetname" "Channel A"
+			(at 88.9 62.7884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "channels/channel.kicad_sch"
+			(at 88.9 74.2446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "VIN" passive
+			(at 88.9 66.04 180)
+			(uuid "d6d2223c-b2b0-4f74-a291-40d9ac4d02ed")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 88.9 68.58 180)
+			(uuid "151d989b-1a62-4b76-a2e8-6fb1dbf34034")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "Hierarchy"
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 88.9)
+		(size 25.4 10.16)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "50082292-eae6-402c-a1a8-1f4d55d13b82")
+		(property "Sheetname" "Channel B"
+			(at 88.9 88.1884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "channels/channel.kicad_sch"
+			(at 88.9 99.6446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "VIN" passive
+			(at 88.9 91.44 180)
+			(uuid "029c65bc-3037-46d5-a5ce-89273c5ce286")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 88.9 93.98 180)
+			(uuid "abc99a63-c51a-4f2e-ad90-923e41cf862e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "Hierarchy"
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

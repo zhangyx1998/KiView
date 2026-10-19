@@ -1,0 +1,13 @@
+Usage: dxf [--help] [--output] [--layers] [--erd] [--ev] [--uc] [--ou] input
+
+Positional arguments:
+  input                    Input file
+
+Optional arguments:
+  -h, --help               shows help message and exits
+  -o, --output             Output file name
+  -l, --layers             Comma separated list of untranslated layer names to include such as F.Cu,B.Cu
+  --erd, --exclude-refdes  Exclude the reference designator text
+  --ev, --exclude-value    Exclude the value text
+  --uc, --use-contours     Plot graphic items using their contours
+  --ou, --output-units     Output units, valid options: mm, in

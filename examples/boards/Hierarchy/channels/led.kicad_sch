@@ -1,0 +1,232 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "ee2bc57e-c8a1-4c01-acc8-6d3281441296")
+	(paper "A4")
+	(title_block
+		(title "LED")
+		(date "2026-10-09")
+		(rev "A")
+		(company "KiView samples (CC0 1.0)")
+		(comment 1 "KiCad 8 file format, 3-level hierarchy with sheets in channels/")
+	)
+	(lib_symbols
+		(symbol "Samples:LED"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy 1.27 -1.27)
+						(xy 1.27 1.27)
+						(xy -1.27 0)
+						(xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27)
+						(xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 72.39 76.2)
+			(xy 69.85 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a76962c1-2e0f-4e98-a1a4-ed973d3fda50")
+	)
+	(hierarchical_label "K"
+		(shape passive)
+		(at 69.85 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "73aae7ad-2fe3-405d-afe3-8e81cae1e750")
+	)
+	(wire
+		(pts
+			(xy 80.01 76.2)
+			(xy 82.55 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b34cf76-e81f-40f7-a7be-8d11b0656228")
+	)
+	(hierarchical_label "A"
+		(shape passive)
+		(at 82.55 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "57fa05b9-97b8-4f67-aac7-0e1eccc8df7c")
+	)
+	(symbol
+		(lib_id "Samples:LED")
+		(at 76.2 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "817b35c7-1b4e-407e-ad20-b2abc1093f46")
+		(property "Reference" "D1"
+			(at 76.2 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "green"
+			(at 76.2 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Samples:LED_0805"
+			(at 76.2 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 76.2 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3b2824f5-eb76-4a5b-a072-4a13762f8b4e")
+		)
+		(pin "2"
+			(uuid "443ca954-3060-4f5a-a15e-ede5535f62c2")
+		)
+		(instances
+			(project "Hierarchy"
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2/b3608696-9695-424e-a500-8b9c7197eabe/2f6dcf03-3619-40a0-a3d8-a7fcf9a2d0b8"
+					(reference "D1")
+					(unit 1)
+				)
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2/50082292-eae6-402c-a1a8-1f4d55d13b82/2f6dcf03-3619-40a0-a3d8-a7fcf9a2d0b8"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+)

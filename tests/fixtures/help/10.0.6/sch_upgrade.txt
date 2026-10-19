@@ -1,0 +1,10 @@
+Usage: sch upgrade [--help] [--force] INPUT_FILE
+
+Upgrade the schematic file's format to the latest one
+
+Positional arguments:
+  INPUT_FILE  Input file 
+
+Optional arguments:
+  -h, --help  Shows help message and exits 
+  --force     Forces the schematic file to be resaved regardless of versioning 

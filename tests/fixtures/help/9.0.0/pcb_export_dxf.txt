@@ -1,0 +1,24 @@
+Usage: dxf [--help] [--output OUTPUT_FILE] [--layers LAYER_LIST] [--drawing-sheet SHEET_PATH] [--define-var KEY=VALUE] [--erd] [--ev] [--uc] [--udo] [--ibt] [--ou UNITS] [--drill-shape-opt] [--cl COMMON_LAYER_LIST] [--mode-single] [--mode-multi] [--plot-invisible-text] INPUT_FILE
+
+Generate a DXF from a list of layers
+
+Positional arguments:
+  INPUT_FILE                     Input file
+
+Optional arguments:
+  -h, --help                     Shows help message and exits
+  -o, --output                   Output file
+  -l, --layers                   Comma separated list of untranslated layer names to include such as F.Cu,B.Cu
+  --drawing-sheet                Path to drawing sheet, this overrides any existing project defined sheet when used
+  -D, --define-var               Overrides or adds project variables, can be used multiple times to declare multiple variables. Use in the format of '--define-var key=value' or '-D key=value'
+  --erd, --exclude-refdes        Exclude the reference designator text
+  --ev, --exclude-value          Exclude the value text
+  --uc, --use-contours           Plot graphic items using their contours
+  --udo, --use-drill-origin      Plot using the drill/place file origin
+  --ibt, --include-border-title  Include the border and title block
+  --ou, --output-units           Output units, valid options: mm, in
+  --drill-shape-opt              Set pad/via drill shape option (0 = no shape, 1 = small shape, 2 = actual shape)
+  --cl, --common-layers          Layers to include on each plot, comma separated list of untranslated layer names to include such as F.Cu,B.Cu
+  --mode-single                  Generates a single file with the output arg path acting as the complete directory and filename path. COMMON_LAYER_LIST does not function in this mode. Instead LAYER_LIST controls all layers plotted.
+  --mode-multi                   Generates one or more files with behavior similar to the KiCad GUI plotting. The given output path specifies a directory in which files may be output.
+  --plot-invisible-text          Force plotting of invisible values / refs

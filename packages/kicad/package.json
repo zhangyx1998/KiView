@@ -1,0 +1,14 @@
+{
+  "name": "@kiview/kicad",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One interface over several ways of driving KiCad (kicad-cli 9+, 7/8, pcbnew Python, Docker): board info, layer SVGs, 3D, thumbnails, schematic, BOM, fab.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./types": { "types": "./dist/types.d.ts", "default": "./dist/types.js" }
+  },
+  "files": ["dist", "src", "python"],
+  "engines": { "node": ">=22.14" }
+}

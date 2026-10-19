@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "filename": "Hierarchy.kicad_pro",
+    "version": 1
+  },
+  "sheets": [
+    [
+      "294307e5-6ac0-4dda-a40b-d4458e3639a2",
+      "Root"
+    ],
+    [
+      "b3608696-9695-424e-a500-8b9c7197eabe",
+      "Channel A"
+    ],
+    [
+      "2f6dcf03-3619-40a0-a3d8-a7fcf9a2d0b8",
+      "LED"
+    ],
+    [
+      "50082292-eae6-402c-a1a8-1f4d55d13b82",
+      "Channel B"
+    ]
+  ],
+  "text_variables": {}
+}

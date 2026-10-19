@@ -1,0 +1,16 @@
+{
+  "$comment": "What the contract runner (tests/contract/run.ts) expects of examples/boards. boards: every sample, with the facts readBoard() must report (also checked without KiCad by tests/samples.test.ts). require: features that must be available for a board exported through that backend (on top of the capability rules in tests/contract/features.ts). Phase 2 merged: cli-modern (KiCad 9 / 10) must deliver every feature; cli-7-8 and docker (KiCad 7 / 8 kicad-cli) the layers, the thumbnail (render or the layer composite), schematic, BOM, cross-probe, netlist and stats (file numbers); DRC / ERC (8+) and the 3D model (VRML / GLB from 8, KiCad 7 only through its Python) follow the capability rules but are not a floor; pcbnew-python the layers. See docs/ci.md.",
+  "boards": {
+    "Blinky": { "formatVersion": 20260206, "minKicad": 10, "copperLayers": 2, "schFormatVersion": 20260306, "sheets": 2 },
+    "FourLayer": { "formatVersion": 20241229, "minKicad": 9, "copperLayers": 4, "schFormatVersion": 20250114, "sheets": 1 },
+    "Hierarchy": { "formatVersion": 20240108, "minKicad": 8, "copperLayers": 2, "schFormatVersion": 20231120, "sheets": 5 },
+    "Legacy7": { "formatVersion": 20221018, "minKicad": 7, "copperLayers": 2, "schFormatVersion": 20230121, "sheets": 1 },
+    "Legacy8": { "formatVersion": 20240108, "minKicad": 8, "copperLayers": 2, "schFormatVersion": 20231120, "sheets": 1 }
+  },
+  "require": {
+    "cli-modern": ["layers", "model3d", "thumbnail", "schematic", "bom", "crossProbe", "netlist", "fab", "drc", "erc", "stats"],
+    "cli-7-8": ["layers", "thumbnail", "schematic", "bom", "crossProbe", "netlist", "stats"],
+    "pcbnew-python": ["layers"],
+    "docker": ["layers", "thumbnail", "schematic", "bom", "crossProbe", "netlist", "stats"]
+  }
+}

@@ -1,0 +1,1155 @@
+[
+  {
+    "name": "Blinky",
+    "title": "Blinky",
+    "model": {
+      "url": "/board-assets/Blinky/model/6e715e89b1350e74/model.wrl",
+      "format": "vrml",
+      "bytes": 429553
+    },
+    "layers": [
+      {
+        "id": "B.CrtYd",
+        "name": "Back courtyard",
+        "kind": "courtyard",
+        "side": "back",
+        "color": "#26e9ff",
+        "order": 0,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_CrtYd.svg"
+      },
+      {
+        "id": "B.Fab",
+        "name": "Back fabrication",
+        "kind": "fab",
+        "side": "back",
+        "color": "#88a0d0",
+        "order": 1,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Fab.svg"
+      },
+      {
+        "id": "B.SilkS",
+        "name": "Back silkscreen",
+        "kind": "silkscreen",
+        "side": "back",
+        "color": "#e8b2a7",
+        "order": 2,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_SilkS.svg"
+      },
+      {
+        "id": "B.Paste",
+        "name": "Back paste",
+        "kind": "paste",
+        "side": "back",
+        "color": "#00c2c2",
+        "order": 3,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Paste.svg"
+      },
+      {
+        "id": "B.Mask",
+        "name": "Back solder mask",
+        "kind": "mask",
+        "side": "back",
+        "color": "#02ffee",
+        "order": 4,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Mask.svg"
+      },
+      {
+        "id": "B.Cu",
+        "name": "Back copper",
+        "kind": "copper",
+        "side": "back",
+        "color": "#4d7fc4",
+        "order": 5,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Cu.svg"
+      },
+      {
+        "id": "F.Cu",
+        "name": "Front copper",
+        "kind": "copper",
+        "side": "front",
+        "color": "#c83434",
+        "order": 6,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Cu.svg"
+      },
+      {
+        "id": "F.Mask",
+        "name": "Front solder mask",
+        "kind": "mask",
+        "side": "front",
+        "color": "#d864ff",
+        "order": 7,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Mask.svg"
+      },
+      {
+        "id": "F.Paste",
+        "name": "Front paste",
+        "kind": "paste",
+        "side": "front",
+        "color": "#b4a0a0",
+        "order": 8,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Paste.svg"
+      },
+      {
+        "id": "F.SilkS",
+        "name": "Front silkscreen",
+        "kind": "silkscreen",
+        "side": "front",
+        "color": "#f2eda1",
+        "order": 9,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_SilkS.svg"
+      },
+      {
+        "id": "F.Fab",
+        "name": "Front fabrication",
+        "kind": "fab",
+        "side": "front",
+        "color": "#afafaf",
+        "order": 10,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Fab.svg"
+      },
+      {
+        "id": "F.CrtYd",
+        "name": "Front courtyard",
+        "kind": "courtyard",
+        "side": "front",
+        "color": "#ff26e2",
+        "order": 11,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_CrtYd.svg"
+      },
+      {
+        "id": "Edge.Cuts",
+        "name": "Edge cuts",
+        "kind": "edge",
+        "side": "both",
+        "color": "#e6e8e3",
+        "order": 12,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/Edge_Cuts.svg"
+      },
+      {
+        "id": "Cmts.User",
+        "name": "User comments",
+        "kind": "other",
+        "side": "both",
+        "color": "#5994dc",
+        "order": 13,
+        "url": "/board-assets/Blinky/layers/593feeb84e824bd4/Cmts_User.svg"
+      }
+    ],
+    "bounds": {
+      "x": 99,
+      "y": 99,
+      "width": 32,
+      "height": 22
+    },
+    "size": {
+      "width": 30,
+      "height": 20
+    },
+    "thumbnail": {
+      "url": "/board-assets/Blinky/thumbnail/f39d684889639519/thumbnail.png",
+      "width": 442,
+      "height": 348
+    },
+    "copperLayers": 2,
+    "revision": "f2887eecb0d8",
+    "maskColor": "Green",
+    "titleBlock": {
+      "title": "Blinky",
+      "rev": "A",
+      "date": "2026-10-08",
+      "company": "KiView examples",
+      "comments": [
+        "2-layer 30 x 20 mm LED test fixture",
+        "CC0-1.0 test fixture"
+      ]
+    },
+    "kicad": {
+      "formatVersion": 20260206,
+      "minKicad": 10,
+      "exportedWith": "10.0.6",
+      "backend": "cli-modern"
+    },
+    "files": {
+      "pcb": "Blinky/Blinky.kicad_pcb",
+      "sch": "Blinky/Blinky.kicad_sch",
+      "pro": "Blinky/Blinky.kicad_pro"
+    },
+    "features": {
+      "layers": {
+        "available": true
+      },
+      "model3d": {
+        "available": true
+      },
+      "thumbnail": {
+        "available": true
+      },
+      "schematic": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: schematicSvg"
+      },
+      "bom": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "crossProbe": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "netlist": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: netlist"
+      },
+      "fab": {
+        "available": false,
+        "reason": "the generic fabrication bundle is not available with this KiCad backend yet"
+      },
+      "drc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: drc"
+      },
+      "erc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: erc"
+      },
+      "stats": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: stats"
+      }
+    },
+    "rev": {
+      "hash": "f2887eecb0d8",
+      "titleBlock": "A",
+      "version": null,
+      "git": null,
+      "label": "A"
+    },
+    "schematic": null,
+    "bom": null,
+    "parts": null,
+    "netlist": null,
+    "stats": null,
+    "reports": {
+      "drc": null,
+      "erc": null
+    }
+  },
+  {
+    "name": "FourLayer",
+    "title": "FourLayer",
+    "model": {
+      "url": "/board-assets/FourLayer/model/e99b24f8d851172c/model.wrl",
+      "format": "vrml",
+      "bytes": 467061
+    },
+    "layers": [
+      {
+        "id": "B.CrtYd",
+        "name": "Back courtyard",
+        "kind": "courtyard",
+        "side": "back",
+        "color": "#26e9ff",
+        "order": 0,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/B_CrtYd.svg"
+      },
+      {
+        "id": "B.Fab",
+        "name": "Back fabrication",
+        "kind": "fab",
+        "side": "back",
+        "color": "#88a0d0",
+        "order": 1,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/B_Fab.svg"
+      },
+      {
+        "id": "B.SilkS",
+        "name": "Back silkscreen",
+        "kind": "silkscreen",
+        "side": "back",
+        "color": "#e8b2a7",
+        "order": 2,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/B_SilkS.svg"
+      },
+      {
+        "id": "B.Paste",
+        "name": "Back paste",
+        "kind": "paste",
+        "side": "back",
+        "color": "#00c2c2",
+        "order": 3,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/B_Paste.svg"
+      },
+      {
+        "id": "B.Mask",
+        "name": "Back solder mask",
+        "kind": "mask",
+        "side": "back",
+        "color": "#02ffee",
+        "order": 4,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/B_Mask.svg"
+      },
+      {
+        "id": "B.Cu",
+        "name": "Back copper",
+        "kind": "copper",
+        "side": "back",
+        "color": "#4d7fc4",
+        "order": 5,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/B_Cu.svg"
+      },
+      {
+        "id": "In2.Cu",
+        "name": "Inner copper 2",
+        "kind": "copper",
+        "side": "inner",
+        "color": "#ce7d2c",
+        "order": 6,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/In2_Cu.svg"
+      },
+      {
+        "id": "In1.Cu",
+        "name": "Inner copper 1",
+        "kind": "copper",
+        "side": "inner",
+        "color": "#7fc87f",
+        "order": 7,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/In1_Cu.svg"
+      },
+      {
+        "id": "F.Cu",
+        "name": "Front copper",
+        "kind": "copper",
+        "side": "front",
+        "color": "#c83434",
+        "order": 8,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/F_Cu.svg"
+      },
+      {
+        "id": "F.Mask",
+        "name": "Front solder mask",
+        "kind": "mask",
+        "side": "front",
+        "color": "#d864ff",
+        "order": 9,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/F_Mask.svg"
+      },
+      {
+        "id": "F.Paste",
+        "name": "Front paste",
+        "kind": "paste",
+        "side": "front",
+        "color": "#b4a0a0",
+        "order": 10,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/F_Paste.svg"
+      },
+      {
+        "id": "F.SilkS",
+        "name": "Front silkscreen",
+        "kind": "silkscreen",
+        "side": "front",
+        "color": "#f2eda1",
+        "order": 11,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/F_SilkS.svg"
+      },
+      {
+        "id": "F.Fab",
+        "name": "Front fabrication",
+        "kind": "fab",
+        "side": "front",
+        "color": "#afafaf",
+        "order": 12,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/F_Fab.svg"
+      },
+      {
+        "id": "F.CrtYd",
+        "name": "Front courtyard",
+        "kind": "courtyard",
+        "side": "front",
+        "color": "#ff26e2",
+        "order": 13,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/F_CrtYd.svg"
+      },
+      {
+        "id": "Edge.Cuts",
+        "name": "Edge cuts",
+        "kind": "edge",
+        "side": "both",
+        "color": "#e6e8e3",
+        "order": 14,
+        "url": "/board-assets/FourLayer/layers/e83c06fb4a64012d/Edge_Cuts.svg"
+      }
+    ],
+    "bounds": {
+      "x": 99,
+      "y": 99,
+      "width": 42,
+      "height": 32
+    },
+    "size": {
+      "width": 40,
+      "height": 30
+    },
+    "thumbnail": {
+      "url": "/board-assets/FourLayer/thumbnail/6207ce2bb3749449/thumbnail.png",
+      "width": 458,
+      "height": 357
+    },
+    "copperLayers": 4,
+    "revision": "ca0118404ff7",
+    "maskColor": "Blue",
+    "titleBlock": {
+      "title": "FourLayer",
+      "rev": "A",
+      "date": "2026-10-09",
+      "company": "KiView samples (CC0 1.0)",
+      "comments": [
+        "KiCad 9 file format (pcb 20241229, sch 20250114), 4 layers"
+      ]
+    },
+    "kicad": {
+      "formatVersion": 20241229,
+      "minKicad": 9,
+      "exportedWith": "10.0.6",
+      "backend": "cli-modern"
+    },
+    "files": {
+      "pcb": "FourLayer/FourLayer.kicad_pcb",
+      "sch": "FourLayer/FourLayer.kicad_sch",
+      "pro": "FourLayer/FourLayer.kicad_pro"
+    },
+    "features": {
+      "layers": {
+        "available": true
+      },
+      "model3d": {
+        "available": true
+      },
+      "thumbnail": {
+        "available": true
+      },
+      "schematic": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: schematicSvg"
+      },
+      "bom": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "crossProbe": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "netlist": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: netlist"
+      },
+      "fab": {
+        "available": false,
+        "reason": "the generic fabrication bundle is not available with this KiCad backend yet"
+      },
+      "drc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: drc"
+      },
+      "erc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: erc"
+      },
+      "stats": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: stats"
+      }
+    },
+    "rev": {
+      "hash": "ca0118404ff7",
+      "titleBlock": "A",
+      "version": null,
+      "git": null,
+      "label": "A"
+    },
+    "schematic": null,
+    "bom": null,
+    "parts": null,
+    "netlist": null,
+    "stats": null,
+    "reports": {
+      "drc": null,
+      "erc": null
+    }
+  },
+  {
+    "name": "Hierarchy",
+    "title": "Hierarchy",
+    "model": {
+      "url": "/board-assets/Hierarchy/model/00b4c21224ede7bb/model.wrl",
+      "format": "vrml",
+      "bytes": 408325
+    },
+    "layers": [
+      {
+        "id": "B.CrtYd",
+        "name": "Back courtyard",
+        "kind": "courtyard",
+        "side": "back",
+        "color": "#26e9ff",
+        "order": 0,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_CrtYd.svg"
+      },
+      {
+        "id": "B.Fab",
+        "name": "Back fabrication",
+        "kind": "fab",
+        "side": "back",
+        "color": "#88a0d0",
+        "order": 1,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Fab.svg"
+      },
+      {
+        "id": "B.SilkS",
+        "name": "Back silkscreen",
+        "kind": "silkscreen",
+        "side": "back",
+        "color": "#e8b2a7",
+        "order": 2,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_SilkS.svg"
+      },
+      {
+        "id": "B.Paste",
+        "name": "Back paste",
+        "kind": "paste",
+        "side": "back",
+        "color": "#00c2c2",
+        "order": 3,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Paste.svg"
+      },
+      {
+        "id": "B.Mask",
+        "name": "Back solder mask",
+        "kind": "mask",
+        "side": "back",
+        "color": "#02ffee",
+        "order": 4,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Mask.svg"
+      },
+      {
+        "id": "B.Cu",
+        "name": "Back copper",
+        "kind": "copper",
+        "side": "back",
+        "color": "#4d7fc4",
+        "order": 5,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/B_Cu.svg"
+      },
+      {
+        "id": "F.Cu",
+        "name": "Front copper",
+        "kind": "copper",
+        "side": "front",
+        "color": "#c83434",
+        "order": 6,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Cu.svg"
+      },
+      {
+        "id": "F.Mask",
+        "name": "Front solder mask",
+        "kind": "mask",
+        "side": "front",
+        "color": "#d864ff",
+        "order": 7,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Mask.svg"
+      },
+      {
+        "id": "F.Paste",
+        "name": "Front paste",
+        "kind": "paste",
+        "side": "front",
+        "color": "#b4a0a0",
+        "order": 8,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Paste.svg"
+      },
+      {
+        "id": "F.SilkS",
+        "name": "Front silkscreen",
+        "kind": "silkscreen",
+        "side": "front",
+        "color": "#f2eda1",
+        "order": 9,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_SilkS.svg"
+      },
+      {
+        "id": "F.Fab",
+        "name": "Front fabrication",
+        "kind": "fab",
+        "side": "front",
+        "color": "#afafaf",
+        "order": 10,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_Fab.svg"
+      },
+      {
+        "id": "F.CrtYd",
+        "name": "Front courtyard",
+        "kind": "courtyard",
+        "side": "front",
+        "color": "#ff26e2",
+        "order": 11,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/F_CrtYd.svg"
+      },
+      {
+        "id": "Edge.Cuts",
+        "name": "Edge cuts",
+        "kind": "edge",
+        "side": "both",
+        "color": "#e6e8e3",
+        "order": 12,
+        "url": "/board-assets/Hierarchy/layers/92225033d283ecb4/Edge_Cuts.svg"
+      }
+    ],
+    "bounds": {
+      "x": 99,
+      "y": 99,
+      "width": 42,
+      "height": 27
+    },
+    "size": {
+      "width": 40,
+      "height": 25
+    },
+    "thumbnail": {
+      "url": "/board-assets/Hierarchy/thumbnail/3e4a7d535c66600b/thumbnail.png",
+      "width": 440,
+      "height": 335
+    },
+    "copperLayers": 2,
+    "revision": "6e190ec276be",
+    "maskColor": "Red",
+    "titleBlock": {
+      "title": "Hierarchy",
+      "rev": "A",
+      "date": "2026-10-09",
+      "company": "KiView samples (CC0 1.0)",
+      "comments": [
+        "KiCad 8 file format, 3-level hierarchy with sheets in channels/"
+      ]
+    },
+    "kicad": {
+      "formatVersion": 20240108,
+      "minKicad": 8,
+      "exportedWith": "10.0.6",
+      "backend": "cli-modern"
+    },
+    "files": {
+      "pcb": "Hierarchy/Hierarchy.kicad_pcb",
+      "sch": "Hierarchy/Hierarchy.kicad_sch",
+      "pro": "Hierarchy/Hierarchy.kicad_pro"
+    },
+    "features": {
+      "layers": {
+        "available": true
+      },
+      "model3d": {
+        "available": true
+      },
+      "thumbnail": {
+        "available": true
+      },
+      "schematic": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: schematicSvg"
+      },
+      "bom": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "crossProbe": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "netlist": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: netlist"
+      },
+      "fab": {
+        "available": false,
+        "reason": "the generic fabrication bundle is not available with this KiCad backend yet"
+      },
+      "drc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: drc"
+      },
+      "erc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: erc"
+      },
+      "stats": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: stats"
+      }
+    },
+    "rev": {
+      "hash": "6e190ec276be",
+      "titleBlock": "A",
+      "version": null,
+      "git": null,
+      "label": "A"
+    },
+    "schematic": null,
+    "bom": null,
+    "parts": null,
+    "netlist": null,
+    "stats": null,
+    "reports": {
+      "drc": null,
+      "erc": null
+    }
+  },
+  {
+    "name": "Legacy7",
+    "title": "Legacy7",
+    "model": {
+      "url": "/board-assets/Legacy7/model/cfdefd670f72e38c/model.wrl",
+      "format": "vrml",
+      "bytes": 268261
+    },
+    "layers": [
+      {
+        "id": "B.CrtYd",
+        "name": "Back courtyard",
+        "kind": "courtyard",
+        "side": "back",
+        "color": "#26e9ff",
+        "order": 0,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/B_CrtYd.svg"
+      },
+      {
+        "id": "B.Fab",
+        "name": "Back fabrication",
+        "kind": "fab",
+        "side": "back",
+        "color": "#88a0d0",
+        "order": 1,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/B_Fab.svg"
+      },
+      {
+        "id": "B.SilkS",
+        "name": "Back silkscreen",
+        "kind": "silkscreen",
+        "side": "back",
+        "color": "#e8b2a7",
+        "order": 2,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/B_SilkS.svg"
+      },
+      {
+        "id": "B.Paste",
+        "name": "Back paste",
+        "kind": "paste",
+        "side": "back",
+        "color": "#00c2c2",
+        "order": 3,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/B_Paste.svg"
+      },
+      {
+        "id": "B.Mask",
+        "name": "Back solder mask",
+        "kind": "mask",
+        "side": "back",
+        "color": "#02ffee",
+        "order": 4,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/B_Mask.svg"
+      },
+      {
+        "id": "B.Cu",
+        "name": "Back copper",
+        "kind": "copper",
+        "side": "back",
+        "color": "#4d7fc4",
+        "order": 5,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/B_Cu.svg"
+      },
+      {
+        "id": "F.Cu",
+        "name": "Front copper",
+        "kind": "copper",
+        "side": "front",
+        "color": "#c83434",
+        "order": 6,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/F_Cu.svg"
+      },
+      {
+        "id": "F.Mask",
+        "name": "Front solder mask",
+        "kind": "mask",
+        "side": "front",
+        "color": "#d864ff",
+        "order": 7,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/F_Mask.svg"
+      },
+      {
+        "id": "F.Paste",
+        "name": "Front paste",
+        "kind": "paste",
+        "side": "front",
+        "color": "#b4a0a0",
+        "order": 8,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/F_Paste.svg"
+      },
+      {
+        "id": "F.SilkS",
+        "name": "Front silkscreen",
+        "kind": "silkscreen",
+        "side": "front",
+        "color": "#f2eda1",
+        "order": 9,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/F_SilkS.svg"
+      },
+      {
+        "id": "F.Fab",
+        "name": "Front fabrication",
+        "kind": "fab",
+        "side": "front",
+        "color": "#afafaf",
+        "order": 10,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/F_Fab.svg"
+      },
+      {
+        "id": "F.CrtYd",
+        "name": "Front courtyard",
+        "kind": "courtyard",
+        "side": "front",
+        "color": "#ff26e2",
+        "order": 11,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/F_CrtYd.svg"
+      },
+      {
+        "id": "Edge.Cuts",
+        "name": "Edge cuts",
+        "kind": "edge",
+        "side": "both",
+        "color": "#e6e8e3",
+        "order": 12,
+        "url": "/board-assets/Legacy7/layers/8deead43256ed31b/Edge_Cuts.svg"
+      }
+    ],
+    "bounds": {
+      "x": 99,
+      "y": 99,
+      "width": 32,
+      "height": 22
+    },
+    "size": {
+      "width": 30,
+      "height": 20
+    },
+    "thumbnail": {
+      "url": "/board-assets/Legacy7/thumbnail/926f9135219a5af5/thumbnail.png",
+      "width": 448,
+      "height": 350
+    },
+    "copperLayers": 2,
+    "revision": "c3b959db2157",
+    "maskColor": "Green",
+    "titleBlock": {
+      "title": "Legacy7",
+      "rev": "A",
+      "date": "2026-10-09",
+      "company": "KiView samples (CC0 1.0)",
+      "comments": [
+        "KiCad 7 file format (pcb 20221018, sch 20230121)"
+      ]
+    },
+    "kicad": {
+      "formatVersion": 20221018,
+      "minKicad": 7,
+      "exportedWith": "10.0.6",
+      "backend": "cli-modern"
+    },
+    "files": {
+      "pcb": "Legacy7/Legacy7.kicad_pcb",
+      "sch": "Legacy7/Legacy7.kicad_sch",
+      "pro": "Legacy7/Legacy7.kicad_pro"
+    },
+    "features": {
+      "layers": {
+        "available": true
+      },
+      "model3d": {
+        "available": true
+      },
+      "thumbnail": {
+        "available": true
+      },
+      "schematic": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: schematicSvg"
+      },
+      "bom": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "crossProbe": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "netlist": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: netlist"
+      },
+      "fab": {
+        "available": false,
+        "reason": "the generic fabrication bundle is not available with this KiCad backend yet"
+      },
+      "drc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: drc"
+      },
+      "erc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: erc"
+      },
+      "stats": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: stats"
+      }
+    },
+    "rev": {
+      "hash": "c3b959db2157",
+      "titleBlock": "A",
+      "version": null,
+      "git": null,
+      "label": "A"
+    },
+    "schematic": null,
+    "bom": null,
+    "parts": null,
+    "netlist": null,
+    "stats": null,
+    "reports": {
+      "drc": null,
+      "erc": null
+    }
+  },
+  {
+    "name": "Legacy8",
+    "title": "Legacy8",
+    "model": {
+      "url": "/board-assets/Legacy8/model/cd96af338dcf7f57/model.wrl",
+      "format": "vrml",
+      "bytes": 343663
+    },
+    "layers": [
+      {
+        "id": "B.CrtYd",
+        "name": "Back courtyard",
+        "kind": "courtyard",
+        "side": "back",
+        "color": "#26e9ff",
+        "order": 0,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/B_CrtYd.svg"
+      },
+      {
+        "id": "B.Fab",
+        "name": "Back fabrication",
+        "kind": "fab",
+        "side": "back",
+        "color": "#88a0d0",
+        "order": 1,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/B_Fab.svg"
+      },
+      {
+        "id": "B.SilkS",
+        "name": "Back silkscreen",
+        "kind": "silkscreen",
+        "side": "back",
+        "color": "#e8b2a7",
+        "order": 2,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/B_SilkS.svg"
+      },
+      {
+        "id": "B.Paste",
+        "name": "Back paste",
+        "kind": "paste",
+        "side": "back",
+        "color": "#00c2c2",
+        "order": 3,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/B_Paste.svg"
+      },
+      {
+        "id": "B.Mask",
+        "name": "Back solder mask",
+        "kind": "mask",
+        "side": "back",
+        "color": "#02ffee",
+        "order": 4,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/B_Mask.svg"
+      },
+      {
+        "id": "B.Cu",
+        "name": "Back copper",
+        "kind": "copper",
+        "side": "back",
+        "color": "#4d7fc4",
+        "order": 5,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/B_Cu.svg"
+      },
+      {
+        "id": "F.Cu",
+        "name": "Front copper",
+        "kind": "copper",
+        "side": "front",
+        "color": "#c83434",
+        "order": 6,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/F_Cu.svg"
+      },
+      {
+        "id": "F.Mask",
+        "name": "Front solder mask",
+        "kind": "mask",
+        "side": "front",
+        "color": "#d864ff",
+        "order": 7,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/F_Mask.svg"
+      },
+      {
+        "id": "F.Paste",
+        "name": "Front paste",
+        "kind": "paste",
+        "side": "front",
+        "color": "#b4a0a0",
+        "order": 8,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/F_Paste.svg"
+      },
+      {
+        "id": "F.SilkS",
+        "name": "Front silkscreen",
+        "kind": "silkscreen",
+        "side": "front",
+        "color": "#f2eda1",
+        "order": 9,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/F_SilkS.svg"
+      },
+      {
+        "id": "F.Fab",
+        "name": "Front fabrication",
+        "kind": "fab",
+        "side": "front",
+        "color": "#afafaf",
+        "order": 10,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/F_Fab.svg"
+      },
+      {
+        "id": "F.CrtYd",
+        "name": "Front courtyard",
+        "kind": "courtyard",
+        "side": "front",
+        "color": "#ff26e2",
+        "order": 11,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/F_CrtYd.svg"
+      },
+      {
+        "id": "Edge.Cuts",
+        "name": "Edge cuts",
+        "kind": "edge",
+        "side": "both",
+        "color": "#e6e8e3",
+        "order": 12,
+        "url": "/board-assets/Legacy8/layers/d853b0679f3687fc/Edge_Cuts.svg"
+      }
+    ],
+    "bounds": {
+      "x": 99,
+      "y": 99,
+      "width": 32,
+      "height": 22
+    },
+    "size": {
+      "width": 30,
+      "height": 20
+    },
+    "thumbnail": {
+      "url": "/board-assets/Legacy8/thumbnail/c87656a498619bdd/thumbnail.png",
+      "width": 448,
+      "height": 350
+    },
+    "copperLayers": 2,
+    "revision": "7fd387aa7344",
+    "maskColor": "Black",
+    "titleBlock": {
+      "title": "Legacy8",
+      "rev": "A",
+      "date": "2026-10-09",
+      "company": "KiView samples (CC0 1.0)",
+      "comments": [
+        "KiCad 8 file format (pcb 20240108, sch 20231120)"
+      ]
+    },
+    "kicad": {
+      "formatVersion": 20240108,
+      "minKicad": 8,
+      "exportedWith": "10.0.6",
+      "backend": "cli-modern"
+    },
+    "files": {
+      "pcb": "Legacy8/Legacy8.kicad_pcb",
+      "sch": "Legacy8/Legacy8.kicad_sch",
+      "pro": "Legacy8/Legacy8.kicad_pro"
+    },
+    "features": {
+      "layers": {
+        "available": true
+      },
+      "model3d": {
+        "available": true
+      },
+      "thumbnail": {
+        "available": true
+      },
+      "schematic": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: schematicSvg"
+      },
+      "bom": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "crossProbe": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: bom"
+      },
+      "netlist": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: netlist"
+      },
+      "fab": {
+        "available": false,
+        "reason": "the generic fabrication bundle is not available with this KiCad backend yet"
+      },
+      "drc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: drc"
+      },
+      "erc": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: erc"
+      },
+      "stats": {
+        "available": false,
+        "reason": "the KiCad backend cannot do: stats"
+      }
+    },
+    "rev": {
+      "hash": "7fd387aa7344",
+      "titleBlock": "A",
+      "version": null,
+      "git": null,
+      "label": "A"
+    },
+    "schematic": null,
+    "bom": null,
+    "parts": null,
+    "netlist": null,
+    "stats": null,
+    "reports": {
+      "drc": null,
+      "erc": null
+    }
+  }
+]

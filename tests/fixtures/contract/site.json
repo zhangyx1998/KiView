@@ -1,0 +1,15 @@
+{
+  "title": "KiView examples",
+  "description": "Sample projects used by the docs and the CI export matrix.",
+  "logo": null,
+  "theme": {
+    "appearance": "dark",
+    "accent": null,
+    "vars": {}
+  },
+  "generator": {
+    "name": "kiview",
+    "version": "0.1.0"
+  },
+  "kicad": "kicad-cli 10.0.6 (cli-modern) at /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"
+}

@@ -1,0 +1,159 @@
+# CI, documented in docs/ci.md.
+#
+#   check       typecheck + unit / contract tests without KiCad, and the npm package
+#               (dist/) builds and packs (every push and PR)
+#   export      the export matrix: examples/boards built inside kicad/kicad:<version>
+#               images and checked against the contract (tests/contract/run.ts); also
+#               captures the raw `kicad-cli --help` texts of each version
+#   build-site  the examples site, built with KiCad 10 and uploaded as an artifact
+#               (a GitHub Pages deploy is prepared below, commented out)
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      # the npm package (dist/, scripts/dist-package.ts) builds and packs
+      - run: npm run build
+      - run: npm pack --dry-run ./dist
+
+  export:
+    name: export (KiCad ${{ matrix.kicad }})
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # nightly may break at any time: its job is reported but does not fail the run
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # 7.0 and 8.0 have no -full variant (no stock 3D models: the model stage warns
+          # and exports the bare board); 9.0 and later use -full for the 3D models
+          - { kicad: '7.0', image: 'kicad/kicad:7.0', expect: '7', experimental: false }
+          - { kicad: '8.0', image: 'kicad/kicad:8.0', expect: '8', experimental: false }
+          - { kicad: '9.0', image: 'kicad/kicad:9.0-full', expect: '9', experimental: false }
+          - { kicad: '10.0', image: 'kicad/kicad:10.0-full', expect: '10', experimental: false }
+          - { kicad: 'nightly', image: 'kicad/kicad:nightly-full', expect: '>=10', experimental: true }
+    container:
+      image: ${{ matrix.image }}
+      # The images run as the non-root user "kicad" (uid 1000), but the runner mounts the
+      # workspace and tool cache owned by its own uid (1001), and the JavaScript actions
+      # (checkout, setup-node, upload-artifact) write there: run the job as root.
+      options: --user root
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: KiCad in the image
+        run: |
+          kicad-cli version
+          ls -d /usr/share/kicad/3dmodels 2>/dev/null || echo "no stock 3D models in this image"
+      - name: Virtual display
+        # `kicad-cli pcb render` (thumbnails, KiCad 9+) draws with OpenGL
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends xvfb xauth
+      - run: npm ci
+      - run: npm run build
+      - name: Contract
+        run: xvfb-run -a node tests/contract/run.ts --out contract-out --expect-kicad '${{ matrix.expect }}'
+      - name: Capture kicad-cli help texts
+        # raw material for the probe's help-text fixtures (tests/fixtures/help/, owned by
+        # the backends stream); one file per command path, e.g. pcb_export_svg.txt
+        if: always()
+        shell: bash
+        run: |
+          dir="contract-out/help/$(kicad-cli version | tr -d '[:space:]')"
+          mkdir -p "$dir"
+          kicad-cli version > "$dir/version.txt"
+          for cmd in "pcb" "pcb export" "pcb export svg" "pcb export vrml" "pcb export glb" \
+                     "pcb export step" "pcb render" "pcb drc" "sch" "sch export" "sch export svg" \
+                     "sch export bom" "sch export netlist" "sch erc"; do
+            kicad-cli $cmd --help > "$dir/${cmd// /_}.txt" 2>&1 || true
+          done
+      - name: Upload the outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-kicad-${{ matrix.kicad }}
+          path: |
+            contract-out/dist
+            contract-out/help
+            contract-out/*.json
+            contract-out/*.md
+            contract-out/pipeline.log
+          if-no-files-found: warn
+          retention-days: 14
+
+  build-site:
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    container:
+      image: kicad/kicad:10.0-full
+      options: --user root   # see the export job
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: |
+          apt-get update
+          apt-get install -y --no-install-recommends xvfb xauth
+      - run: npm ci
+      - run: npm run build
+      # a project page is served under /<repository>/ (a user page or custom domain: /)
+      - name: Build the examples site
+        run: >
+          xvfb-run -a node packages/cli/bin/kiview.js build examples/boards
+          --base '/${{ github.event.repository.name }}/' --out-dir site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: examples-site
+          path: site
+          retention-days: 14
+      # GitHub Pages (Settings > Pages > Source: GitHub Actions). To publish on pushes to
+      # main, uncomment these two steps and the deploy-pages job below. Pages has no
+      # rewrites, so 404.html (a copy of index.html) serves the /board/<name> routes.
+      # - if: github.ref == 'refs/heads/main'
+      #   run: cp site/index.html site/404.html
+      # - if: github.ref == 'refs/heads/main'
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: site
+
+  # deploy-pages:
+  #   if: github.ref == 'refs/heads/main'
+  #   needs: build-site
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write
+  #     id-token: write
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - id: deployment
+  #       uses: actions/deploy-pages@v4

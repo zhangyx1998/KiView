@@ -1,0 +1,7 @@
+Usage: sch [--help] {export}
+
+Optional arguments:
+  -h, --help  shows help message and exits
+
+Subcommands:
+  export      

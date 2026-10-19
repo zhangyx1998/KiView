@@ -1,0 +1,68 @@
+{
+  "name": "@zdv/kiview",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turn a folder of KiCad projects into a static website: board cards, 3D viewer, layer browser, schematic, BOM, assembly steps and fab downloads.",
+  "type": "module",
+  "keywords": [
+    "kicad",
+    "pcb",
+    "eda",
+    "schematic",
+    "bom",
+    "gerber",
+    "3d",
+    "vite",
+    "static-site"
+  ],
+  "author": "Yuxuan Zhang",
+  "license": "MIT",
+  "homepage": "https://github.com/zhangyx1998/KiView#readme",
+  "bugs": {
+    "url": "https://github.com/zhangyx1998/KiView/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyx1998/KiView.git"
+  },
+  "engines": {
+    "node": ">=22.14"
+  },
+  "exports": {
+    ".": {
+      "types": "./packages/cli/dist/index.d.ts",
+      "default": "./packages/cli/dist/index.js"
+    }
+  },
+  "workspaces": [
+    "packages/kicad",
+    "packages/vite-plugin",
+    "packages/client",
+    "packages/cli"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc -b && npm run build:dist",
+    "build:dist": "rollup --config rollup.config.ts --configPlugin esbuild",
+    "typecheck": "tsc -b && vue-tsc -p packages/client --noEmit && tsc -p tests",
+    "test": "tsc -b && node --test \"tests/**/*.test.ts\"",
+    "clean": "tsc -b --clean && rm -rf dist",
+    "example:dev": "node packages/cli/bin/kiview.js dev examples/boards",
+    "example:build": "node packages/cli/bin/kiview.js build examples/boards",
+    "contract": "node tests/contract/run.ts",
+    "samples": "node examples/scripts/generate-samples.mjs --validate"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "16.0.3",
+    "@types/node": "25.9.9",
+    "esbuild": "0.28.2",
+    "rollup": "4.64.10",
+    "rollup-plugin-dts": "6.5.1",
+    "rollup-plugin-esbuild": "6.2.1",
+    "typescript": "6.0.3",
+    "vue-tsc": "3.3.12"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

@@ -1,0 +1,14 @@
+Usage: pdf [--help] [--output] [--layers] [--erd] [--ev] [--ibt] [--black-and-white] [--theme] input
+
+Positional arguments:
+  input                          Input file
+
+Optional arguments:
+  -h, --help                     shows help message and exits
+  -o, --output                   Output file name
+  -l, --layers                   Comma separated list of untranslated layer names to include such as F.Cu,B.Cu
+  --erd, --exclude-refdes        Exclude the reference designator text
+  --ev, --exclude-value          Exclude the value text
+  --ibt, --include-border-title  Include the border and title block
+  --black-and-white              Black and white only
+  -t, --theme                    Color theme to use (will default to pcbnew settings)

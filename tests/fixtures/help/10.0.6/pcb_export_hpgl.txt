@@ -1,0 +1,10 @@
+Usage: export hpgl [--help] [--output OUTPUT_DIR] INPUT_FILE
+
+No longer supported as of KiCad 10.0.
+
+Positional arguments:
+  INPUT_FILE    Input file 
+
+Optional arguments:
+  -h, --help    Shows help message and exits 
+  -o, --output  Output directory [nargs=0..1] [default: ""]

@@ -1,0 +1,8 @@
+Usage: python-bom [--help] [--output] input
+
+Positional arguments:
+  input         Input file
+
+Optional arguments:
+  -h, --help    shows help message and exits
+  -o, --output  Output file name

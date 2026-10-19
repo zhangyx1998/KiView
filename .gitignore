@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.kiview/
+.DS_Store
+*-backups/
+*.lck
+fp-info-cache
+*.kicad_prl
+.contract-out/

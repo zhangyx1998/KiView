@@ -1,0 +1,319 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "59041921-f1ea-43ba-a257-4c086bd327d8")
+	(paper "A4")
+	(title_block
+		(title "Channel")
+		(date "2026-10-09")
+		(rev "A")
+		(company "KiView samples (CC0 1.0)")
+		(comment 1 "KiCad 8 file format, 3-level hierarchy with sheets in channels/")
+	)
+	(lib_symbols
+		(symbol "Samples:R"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.54 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 2.54 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 2.54)
+					(end 1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 63.5 72.39)
+			(xy 63.5 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8013b305-0d8a-4b50-a11d-692eca7c44f1")
+	)
+	(hierarchical_label "VIN"
+		(shape passive)
+		(at 63.5 69.85 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9f5f5da6-bea7-44c9-a6a2-6d969bd4148e")
+	)
+	(wire
+		(pts
+			(xy 63.5 80.01)
+			(xy 63.5 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e372c869-6a19-481c-aa63-dc38b5c586b4")
+	)
+	(label "LED_A"
+		(at 63.5 82.55 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a39856ce-701e-4b0d-a4a5-f4411ae5869e")
+	)
+	(wire
+		(pts
+			(xy 88.9 78.74)
+			(xy 86.36 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cdeb276e-f2d7-4699-acd3-84817a2168e2")
+	)
+	(label "LED_A"
+		(at 86.36 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "39486fdb-3bdf-4c23-a0fc-386f9132fda6")
+	)
+	(wire
+		(pts
+			(xy 88.9 81.28)
+			(xy 86.36 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17b6049c-5187-42ed-ac64-b95cb53bd94a")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 86.36 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b6ba4047-3644-45ab-aa25-0f0bf427c743")
+	)
+	(symbol
+		(lib_id "Samples:R")
+		(at 63.5 76.2 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d373e0a5-23f0-4417-acc2-6e152e4807a7")
+		(property "Reference" "R1"
+			(at 66.04 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 66.04 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Samples:R_0805"
+			(at 63.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3cab24ca-0a39-43fb-a097-5d1636b9f6b3")
+		)
+		(pin "2"
+			(uuid "f31e0e56-b2b7-4700-a998-05198cb18129")
+		)
+		(instances
+			(project "Hierarchy"
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2/b3608696-9695-424e-a500-8b9c7197eabe"
+					(reference "R1")
+					(unit 1)
+				)
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2/50082292-eae6-402c-a1a8-1f4d55d13b82"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 76.2)
+		(size 20.32 10.16)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "2f6dcf03-3619-40a0-a3d8-a7fcf9a2d0b8")
+		(property "Sheetname" "LED"
+			(at 88.9 75.4884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "led.kicad_sch"
+			(at 88.9 86.9446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "A" passive
+			(at 88.9 78.74 180)
+			(uuid "00408ee3-464d-430b-a047-c0a2bfb14f88")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "K" passive
+			(at 88.9 81.28 180)
+			(uuid "bea2bc6b-8430-4141-ab4c-ea806658e773")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "Hierarchy"
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2/b3608696-9695-424e-a500-8b9c7197eabe"
+					(page "3")
+				)
+				(path "/294307e5-6ac0-4dda-a40b-d4458e3639a2/50082292-eae6-402c-a1a8-1f4d55d13b82"
+					(page "5")
+				)
+			)
+		)
+	)
+)

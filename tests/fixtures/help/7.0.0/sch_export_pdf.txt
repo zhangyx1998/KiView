@@ -1,0 +1,12 @@
+Usage: pdf [--help] [--output] [--theme] [--black-and-white] [--exclude-drawing-sheet] [--no-background-color] input
+
+Positional arguments:
+  input                    Input file
+
+Optional arguments:
+  -h, --help               shows help message and exits
+  -o, --output             Output file name
+  -t, --theme              Color theme to use (will default to schematic settings)
+  --black-and-white        Black and white only
+  --exclude-drawing-sheet  No drawing sheet
+  --no-background-color    Avoid setting a background color (regardless of theme)

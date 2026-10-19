@@ -1,0 +1,17 @@
+Usage: gerber [--help] [--output] [--layers] [--erd] [--ev] [--ibt] [--no-x2] [--no-netlist] [--subtract-soldermask] [--disable-aperture-macros] [--precision] input
+
+Positional arguments:
+  input                          Input file
+
+Optional arguments:
+  -h, --help                     shows help message and exits
+  -o, --output                   Output file name
+  -l, --layers                   Comma separated list of untranslated layer names to include such as F.Cu,B.Cu
+  --erd, --exclude-refdes        Exclude the reference designator text
+  --ev, --exclude-value          Exclude the value text
+  --ibt, --include-border-title  Include the border and title block
+  --no-x2                        Do not use the extended X2 format
+  --no-netlist                   Do not generate netlist attributes
+  --subtract-soldermask          Subtract soldermask from silkscreen
+  --disable-aperture-macros      Disable aperature macros
+  --precision                    Precision of gerber coordinates, valid options: 5 or 6

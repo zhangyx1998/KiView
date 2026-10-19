@@ -1,0 +1,666 @@
+{
+ "name": "Blinky",
+ "title": "Blinky",
+ "model": {
+  "url": "/board-assets/Blinky/model/6e715e89b1350e74/model.wrl",
+  "format": "vrml",
+  "bytes": 429553
+ },
+ "layers": [
+  {
+   "id": "B.CrtYd",
+   "name": "Back courtyard",
+   "kind": "courtyard",
+   "side": "back",
+   "color": "#26e9ff",
+   "order": 0,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_CrtYd.svg"
+  },
+  {
+   "id": "B.Fab",
+   "name": "Back fabrication",
+   "kind": "fab",
+   "side": "back",
+   "color": "#88a0d0",
+   "order": 1,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Fab.svg"
+  },
+  {
+   "id": "B.SilkS",
+   "name": "Back silkscreen",
+   "kind": "silkscreen",
+   "side": "back",
+   "color": "#e8b2a7",
+   "order": 2,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_SilkS.svg"
+  },
+  {
+   "id": "B.Paste",
+   "name": "Back paste",
+   "kind": "paste",
+   "side": "back",
+   "color": "#00c2c2",
+   "order": 3,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Paste.svg"
+  },
+  {
+   "id": "B.Mask",
+   "name": "Back solder mask",
+   "kind": "mask",
+   "side": "back",
+   "color": "#02ffee",
+   "order": 4,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Mask.svg"
+  },
+  {
+   "id": "B.Cu",
+   "name": "Back copper",
+   "kind": "copper",
+   "side": "back",
+   "color": "#4d7fc4",
+   "order": 5,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/B_Cu.svg"
+  },
+  {
+   "id": "F.Cu",
+   "name": "Front copper",
+   "kind": "copper",
+   "side": "front",
+   "color": "#c83434",
+   "order": 6,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Cu.svg"
+  },
+  {
+   "id": "F.Mask",
+   "name": "Front solder mask",
+   "kind": "mask",
+   "side": "front",
+   "color": "#d864ff",
+   "order": 7,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Mask.svg"
+  },
+  {
+   "id": "F.Paste",
+   "name": "Front paste",
+   "kind": "paste",
+   "side": "front",
+   "color": "#b4a0a0",
+   "order": 8,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Paste.svg"
+  },
+  {
+   "id": "F.SilkS",
+   "name": "Front silkscreen",
+   "kind": "silkscreen",
+   "side": "front",
+   "color": "#f2eda1",
+   "order": 9,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_SilkS.svg"
+  },
+  {
+   "id": "F.Fab",
+   "name": "Front fabrication",
+   "kind": "fab",
+   "side": "front",
+   "color": "#afafaf",
+   "order": 10,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_Fab.svg"
+  },
+  {
+   "id": "F.CrtYd",
+   "name": "Front courtyard",
+   "kind": "courtyard",
+   "side": "front",
+   "color": "#ff26e2",
+   "order": 11,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/F_CrtYd.svg"
+  },
+  {
+   "id": "Edge.Cuts",
+   "name": "Edge cuts",
+   "kind": "edge",
+   "side": "both",
+   "color": "#e6e8e3",
+   "order": 12,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/Edge_Cuts.svg"
+  },
+  {
+   "id": "Cmts.User",
+   "name": "User comments",
+   "kind": "other",
+   "side": "both",
+   "color": "#5994dc",
+   "order": 13,
+   "url": "/board-assets/Blinky/layers/593feeb84e824bd4/Cmts_User.svg"
+  }
+ ],
+ "bounds": {
+  "x": 99,
+  "y": 99,
+  "width": 32,
+  "height": 22
+ },
+ "size": {
+  "width": 30,
+  "height": 20
+ },
+ "thumbnail": {
+  "url": "/board-assets/Blinky/thumbnail/01890f0b10bd1cf4/thumbnail.png",
+  "width": 442,
+  "height": 348
+ },
+ "copperLayers": 2,
+ "revision": "f2887eecb0d8",
+ "maskColor": "Green",
+ "titleBlock": {
+  "title": "Blinky",
+  "rev": "A",
+  "date": "2026-10-08",
+  "company": "KiView examples",
+  "comments": [
+   "2-layer 30 x 20 mm LED test fixture",
+   "CC0-1.0 test fixture"
+  ]
+ },
+ "kicad": {
+  "formatVersion": 20260206,
+  "minKicad": 10,
+  "exportedWith": "10.0.6",
+  "backend": "cli-modern"
+ },
+ "files": {
+  "pcb": "Blinky/Blinky.kicad_pcb",
+  "sch": "Blinky/Blinky.kicad_sch",
+  "pro": "Blinky/Blinky.kicad_pro"
+ },
+ "features": {
+  "layers": {
+   "available": true
+  },
+  "model3d": {
+   "available": true
+  },
+  "thumbnail": {
+   "available": true
+  },
+  "schematic": {
+   "available": true
+  },
+  "bom": {
+   "available": true
+  },
+  "crossProbe": {
+   "available": true
+  },
+  "netlist": {
+   "available": true
+  },
+  "fab": {
+   "available": true
+  },
+  "drc": {
+   "available": true
+  },
+  "erc": {
+   "available": true
+  },
+  "stats": {
+   "available": true
+  }
+ },
+ "rev": {
+  "hash": "f2887eecb0d8",
+  "titleBlock": "A",
+  "version": "0.1.0",
+  "git": {
+   "commit": "9c5d7f4a20b4b4dc44d8a74cf37d807885cddb87",
+   "short": "9c5d7f4",
+   "tag": null,
+   "dirty": false,
+   "date": "2026-10-09T00:02:58-04:00",
+   "describe": "9c5d7f4",
+   "subject": "Example project: Blinky, 2 layers, 2-sheet hierarchical schematic"
+  },
+  "label": "0.1.0"
+ },
+ "schematic": {
+  "sheets": [
+   {
+    "path": "/",
+    "name": "Blinky",
+    "source": "Blinky.kicad_sch",
+    "page": "1",
+    "parent": null,
+    "titleBlock": {
+     "title": "Blinky",
+     "rev": "A",
+     "date": "2026-10-08",
+     "company": "KiView examples",
+     "comments": [
+      "Root sheet: power input and decoupling",
+      "CC0-1.0 test fixture"
+     ]
+    },
+    "symbols": [
+     {
+      "ref": "J1",
+      "bbox": {
+       "x": 50.8,
+       "y": 76.073,
+       "width": 5.08,
+       "height": 2.794
+      }
+     },
+     {
+      "ref": "H1",
+      "bbox": {
+       "x": 49.53,
+       "y": 102.87,
+       "width": 2.54,
+       "height": 2.54
+      }
+     },
+     {
+      "ref": "C1",
+      "bbox": {
+       "x": 74.168,
+       "y": 76.2,
+       "width": 4.064,
+       "height": 7.62
+      }
+     }
+    ],
+    "symbolBox": null,
+    "url": "/board-assets/Blinky/schematic/5210083d5c03a908/sheet-1.svg"
+   },
+   {
+    "path": "/883fe969-8fd0-54a8-8030-42762e96ca35/",
+    "name": "LED driver",
+    "source": "led_driver.kicad_sch",
+    "page": "2",
+    "parent": "/",
+    "titleBlock": {
+     "title": "Blinky",
+     "rev": "A",
+     "date": "2026-10-08",
+     "company": "KiView examples",
+     "comments": [
+      "LED driver: current-limited indicator LED",
+      "CC0-1.0 test fixture"
+     ]
+    },
+    "symbols": [
+     {
+      "ref": "D1",
+      "bbox": {
+       "x": 77.47,
+       "y": 81.534,
+       "width": 8.382,
+       "height": 3.556
+      }
+     },
+     {
+      "ref": "R1",
+      "bbox": {
+       "x": 62.484,
+       "y": 76.2,
+       "width": 2.032,
+       "height": 7.62
+      }
+     }
+    ],
+    "symbolBox": {
+     "x": 88.9,
+     "y": 71.12,
+     "width": 25.4,
+     "height": 12.7
+    },
+    "url": "/board-assets/Blinky/schematic/5210083d5c03a908/sheet-2.svg"
+   }
+  ]
+ },
+ "bom": {
+  "url": "/board-assets/Blinky/bom/3cdc27a7d7f6f6b4/bom.json",
+  "bytes": 1194
+ },
+ "parts": {
+  "url": "/board-assets/Blinky/parts/d2f7e0c65caecf3a/parts.json",
+  "bytes": 4361
+ },
+ "netlist": {
+  "url": "/board-assets/Blinky/netlist/7738f77d3c4aaf62/netlist.json",
+  "bytes": 621
+ },
+ "stats": {
+  "size": {
+   "width": 30,
+   "height": 20
+  },
+  "copperLayers": 2,
+  "thickness": 1.6,
+  "footprints": {
+   "front": 4,
+   "back": 1,
+   "smd": 3,
+   "tht": 1
+  },
+  "pads": 9,
+  "vias": 1,
+  "holes": {
+   "plated": 3,
+   "nonPlated": 1,
+   "minDiameter": 0.3
+  },
+  "minTrack": 0.3,
+  "minClearance": 1.475,
+  "layerCount": 24,
+  "area": 599.14,
+  "parts": {
+   "front": {
+    "smd": 2,
+    "tht": 1,
+    "other": 1
+   },
+   "back": {
+    "smd": 1,
+    "tht": 0,
+    "other": 0
+   }
+  },
+  "padTypes": {
+   "smd": 6,
+   "tht": 2,
+   "npth": 1
+  },
+  "tracks": {
+   "count": 4,
+   "length": 19.85,
+   "widths": [
+    {
+     "width": 0.3,
+     "count": 1
+    },
+    {
+     "width": 0.4,
+     "count": 3
+    }
+   ]
+  },
+  "viaSizes": [
+   {
+    "size": 0.6,
+    "drill": 0.3,
+    "type": "through",
+    "count": 1
+   }
+  ],
+  "drills": [
+   {
+    "width": 0.3,
+    "height": 0.3,
+    "plated": true,
+    "source": "via",
+    "count": 1
+   },
+   {
+    "width": 1,
+    "height": 1,
+    "plated": true,
+    "source": "pad",
+    "count": 2
+   },
+   {
+    "width": 3.2,
+    "height": 3.2,
+    "plated": false,
+    "source": "pad",
+    "count": 1
+   }
+  ],
+  "minAnnularRing": 0.15,
+  "rules": {
+   "minClearance": 0.2,
+   "minTrackWidth": 0.2,
+   "minViaDiameter": 0.5,
+   "minViaAnnularRing": 0.1,
+   "minHoleDiameter": 0.3,
+   "minHoleToHole": 0.25,
+   "minCopperEdgeClearance": 0.5
+  },
+  "stackup": {
+   "maskColor": {
+    "front": "Green",
+    "back": "Green"
+   },
+   "silkColor": {
+    "front": "White",
+    "back": "White"
+   },
+   "finish": "ENIG",
+   "thickness": 1.6,
+   "copperLayers": 2,
+   "layers": [
+    {
+     "name": "F.SilkS",
+     "type": "Top Silk Screen",
+     "thickness": null,
+     "material": null,
+     "epsilonR": null,
+     "color": "White"
+    },
+    {
+     "name": "F.Paste",
+     "type": "Top Solder Paste",
+     "thickness": null,
+     "material": null,
+     "epsilonR": null,
+     "color": null
+    },
+    {
+     "name": "F.Mask",
+     "type": "Top Solder Mask",
+     "thickness": 0.01,
+     "material": null,
+     "epsilonR": null,
+     "color": "Green"
+    },
+    {
+     "name": "F.Cu",
+     "type": "copper",
+     "thickness": 0.035,
+     "material": null,
+     "epsilonR": null,
+     "color": null
+    },
+    {
+     "name": "dielectric 1",
+     "type": "core",
+     "thickness": 1.51,
+     "material": "FR4",
+     "epsilonR": 4.5,
+     "color": null
+    },
+    {
+     "name": "B.Cu",
+     "type": "copper",
+     "thickness": 0.035,
+     "material": null,
+     "epsilonR": null,
+     "color": null
+    },
+    {
+     "name": "B.Mask",
+     "type": "Bottom Solder Mask",
+     "thickness": 0.01,
+     "material": null,
+     "epsilonR": null,
+     "color": "Green"
+    },
+    {
+     "name": "B.Paste",
+     "type": "Bottom Solder Paste",
+     "thickness": null,
+     "material": null,
+     "epsilonR": null,
+     "color": null
+    },
+    {
+     "name": "B.SilkS",
+     "type": "Bottom Silk Screen",
+     "thickness": null,
+     "material": null,
+     "epsilonR": null,
+     "color": "White"
+    }
+   ]
+  },
+  "source": "file+kicad-cli"
+ },
+ "reports": {
+  "drc": {
+   "url": "/board-assets/Blinky/drc/cf47e01cf99a39e0/drc.json",
+   "counts": {
+    "error": 0,
+    "warning": 0,
+    "exclusion": 0,
+    "info": 0
+   }
+  },
+  "erc": {
+   "url": "/board-assets/Blinky/erc/1278ab797f78f697/erc.json",
+   "counts": {
+    "error": 0,
+    "warning": 0,
+    "exclusion": 0,
+    "info": 0
+   }
+  }
+ },
+ "download": {
+  "url": "/board-assets/Blinky/fab/c548ad3b32864764/Blinky-fab-0.1.0.zip",
+  "filename": "Blinky-fab-0.1.0.zip",
+  "bytes": 114751,
+  "status": "ok",
+  "missing": [],
+  "contents": [
+   "3d/Blinky.step",
+   "assembly/Blinky-bom.csv",
+   "assembly/Blinky-pos-back.csv",
+   "assembly/Blinky-pos-front.csv",
+   "docs/Blinky-NPTH-drl_map.pdf",
+   "docs/Blinky-PTH-drl_map.pdf",
+   "docs/Blinky-schematic.pdf",
+   "gerbers/Blinky-B_Cu.gbl",
+   "gerbers/Blinky-B_Mask.gbs",
+   "gerbers/Blinky-B_Paste.gbp",
+   "gerbers/Blinky-B_Silkscreen.gbo",
+   "gerbers/Blinky-Edge_Cuts.gm1",
+   "gerbers/Blinky-F_Cu.gtl",
+   "gerbers/Blinky-F_Mask.gts",
+   "gerbers/Blinky-F_Paste.gtp",
+   "gerbers/Blinky-F_Silkscreen.gto",
+   "gerbers/Blinky-NPTH.drl",
+   "gerbers/Blinky-PTH.drl",
+   "gerbers/Blinky-job.gbrjob",
+   "gerbers/Blinky.d356"
+  ],
+  "items": [
+   {
+    "id": "gerbers",
+    "label": "Gerbers (X2)",
+    "required": true,
+    "status": "ok",
+    "files": [
+     "gerbers/Blinky-B_Cu.gbl",
+     "gerbers/Blinky-B_Mask.gbs",
+     "gerbers/Blinky-B_Paste.gbp",
+     "gerbers/Blinky-B_Silkscreen.gbo",
+     "gerbers/Blinky-Edge_Cuts.gm1",
+     "gerbers/Blinky-F_Cu.gtl",
+     "gerbers/Blinky-F_Mask.gts",
+     "gerbers/Blinky-F_Paste.gtp",
+     "gerbers/Blinky-F_Silkscreen.gto",
+     "gerbers/Blinky-job.gbrjob"
+    ],
+    "reason": null
+   },
+   {
+    "id": "drill",
+    "label": "Drill files (Excellon, PTH + NPTH)",
+    "required": true,
+    "status": "ok",
+    "files": [
+     "gerbers/Blinky-NPTH.drl",
+     "gerbers/Blinky-PTH.drl"
+    ],
+    "reason": null
+   },
+   {
+    "id": "ipcd356",
+    "label": "IPC-D-356 netlist",
+    "required": false,
+    "status": "ok",
+    "files": [
+     "gerbers/Blinky.d356"
+    ],
+    "reason": null
+   },
+   {
+    "id": "pos",
+    "label": "Position files (CSV)",
+    "required": false,
+    "status": "ok",
+    "files": [
+     "assembly/Blinky-pos-front.csv",
+     "assembly/Blinky-pos-back.csv"
+    ],
+    "reason": null
+   },
+   {
+    "id": "bom",
+    "label": "BOM (CSV)",
+    "required": false,
+    "status": "ok",
+    "files": [
+     "assembly/Blinky-bom.csv"
+    ],
+    "reason": null
+   },
+   {
+    "id": "schematicPdf",
+    "label": "Schematic (PDF)",
+    "required": false,
+    "status": "ok",
+    "files": [
+     "docs/Blinky-schematic.pdf"
+    ],
+    "reason": null
+   },
+   {
+    "id": "drillMap",
+    "label": "Drill maps",
+    "required": false,
+    "status": "ok",
+    "files": [
+     "docs/Blinky-NPTH-drl_map.pdf",
+     "docs/Blinky-PTH-drl_map.pdf"
+    ],
+    "reason": null
+   },
+   {
+    "id": "model",
+    "label": "3D model",
+    "required": false,
+    "status": "ok",
+    "files": [
+     "3d/Blinky.step"
+    ],
+    "reason": null
+   }
+  ]
+ },
+ "geometry": {
+  "url": "/board-assets/Blinky/stats/811abebfbd2bb58c/geometry.json",
+  "bytes": 2087
+ }
+}
