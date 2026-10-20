@@ -1,6 +1,6 @@
 # CI and the contract tests
 
-`.github/workflows/ci.yml` has three jobs (the release workflow is [below](#release)):
+`.github/workflows/ci.yml` has three jobs (the release workflow, `publish.yml`, is [below](#release)):
 
 | job | runs in | what |
 | --- | --- | --- |
@@ -12,7 +12,7 @@
 
 ## Release
 
-`.github/workflows/release.yml` publishes the npm package. Bump the version in
+`.github/workflows/publish.yml` publishes the npm package. Bump the version in
 `package.json`, `packages/*/package.json` and `package-lock.json` (the build fails when
 they differ), commit, then tag and push:
 
@@ -25,7 +25,7 @@ A pushed `v*` tag (or "Run workflow" on a tag ref) runs `npm ci`, typecheck, tes
 `npm publish ./dist --provenance --access public`.
 
 - **Trusted publishing.** No npm token is stored: npmjs.com trusts this repository's
-  `release.yml` (package settings of `@zdv/kiview`), and the job's `id-token: write`
+  `publish.yml` (package settings of `@zdv/kiview`), and the job's `id-token: write`
   permission lets npm exchange the GitHub OIDC token for a one-time publish credential.
   This needs npm 11.5.1 or later, so the job installs `npm@latest` before publishing.
   Renaming the workflow file or the repository breaks the trust until it is updated on

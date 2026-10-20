@@ -2,10 +2,10 @@
 #
 # Pushing a tag v<version> publishes dist/ (scripts/dist-package.ts) to npm as
 # @zdv/kiview. No token: npm trusted publishing (OIDC) is configured on npmjs.com for
-# this repository and this workflow file (release.yml), and --provenance attaches a
+# this repository and this workflow file (publish.yml), and --provenance attaches a
 # signed build attestation. Trusted publishing needs npm >= 11.5.1; the npm bundled
 # with Node 24 on the runner may be older, so the job installs npm@latest first.
-name: release
+name: publish
 
 on:
   push:
@@ -17,7 +17,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: publish-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
