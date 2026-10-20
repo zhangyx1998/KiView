@@ -1,6 +1,6 @@
 {
   "name": "@zdv/kiview",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Turn a folder of KiCad projects into a static website: board cards, 3D viewer, layer browser, schematic, BOM, assembly steps and fab downloads.",
   "type": "module",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zhangyx1998/KiView.git"
+    "url": "https://github.com/zhangyx1998/KiView.git"
   },
   "engines": {
     "node": ">=22.14"

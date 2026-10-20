@@ -1,6 +1,6 @@
 {
   "name": "@kiview/client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "The Vue 3 app of kiview (shipped as source and built by the kiview CLI).",
   "license": "MIT",
@@ -12,8 +12,8 @@
     "vue-router": "5.3.1"
   },
   "devDependencies": {
-    "@kiview/kicad": "0.1.0",
-    "@kiview/vite-plugin": "0.1.0",
+    "@kiview/kicad": "0.1.1",
+    "@kiview/vite-plugin": "0.1.1",
     "@types/three": "0.186.0",
     "vite": "8.3.2"
   }

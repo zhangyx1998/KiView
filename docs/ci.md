@@ -1,6 +1,6 @@
 # CI and the contract tests
 
-`.github/workflows/ci.yml` has three jobs:
+`.github/workflows/ci.yml` has three jobs (the release workflow is [below](#release)):
 
 | job | runs in | what |
 | --- | --- | --- |
@@ -9,6 +9,32 @@
 | `build-site` | `kicad/kicad:10.0-full` | builds the examples site with `--base /<repository>/` and uploads it; a GitHub Pages deploy is prepared, commented out |
 
 `export` and `build-site` start after `check` passes.
+
+## Release
+
+`.github/workflows/release.yml` publishes the npm package. Bump the version in
+`package.json`, `packages/*/package.json` and `package-lock.json` (the build fails when
+they differ), commit, then tag and push:
+
+```sh
+git tag -a v0.1.1 -m "kiview 0.1.1" && git push origin main v0.1.1
+```
+
+A pushed `v*` tag (or "Run workflow" on a tag ref) runs `npm ci`, typecheck, tests and
+`npm run build`, checks that the tag is `v` + `dist/package.json` version, and runs
+`npm publish ./dist --provenance --access public`.
+
+- **Trusted publishing.** No npm token is stored: npmjs.com trusts this repository's
+  `release.yml` (package settings of `@zdv/kiview`), and the job's `id-token: write`
+  permission lets npm exchange the GitHub OIDC token for a one-time publish credential.
+  This needs npm 11.5.1 or later, so the job installs `npm@latest` before publishing.
+  Renaming the workflow file or the repository breaks the trust until it is updated on
+  npmjs.com.
+- **Provenance.** `--provenance` attaches a signed attestation linking the tarball to
+  the commit and the workflow run (shown on npmjs.com, `npm view @zdv/kiview --json`
+  under `dist.attestations`). npm checks that `repository.url` in `dist/package.json`
+  (copied from the root `package.json`) names this repository,
+  `https://github.com/zhangyx1998/KiView.git`.
 
 ## The export matrix
 

@@ -1,0 +1,50 @@
+# Release, documented in docs/ci.md.
+#
+# Pushing a tag v<version> publishes dist/ (scripts/dist-package.ts) to npm as
+# @zdv/kiview. No token: npm trusted publishing (OIDC) is configured on npmjs.com for
+# this repository and this workflow file (release.yml), and --provenance attaches a
+# signed build attestation. Trusted publishing needs npm >= 11.5.1; the npm bundled
+# with Node 24 on the runner may be older, so the job installs npm@latest first.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - name: npm >= 11.5.1 (trusted publishing)
+        run: |
+          npm install -g npm@latest
+          npm --version
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - name: Tag matches the package version
+        run: |
+          version="$(node -p "require('./dist/package.json').version")"
+          echo "dist/package.json: $version, ref: $GITHUB_REF_NAME"
+          if [ "$GITHUB_REF_TYPE" != "tag" ] || [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "::error::ref $GITHUB_REF_NAME is not the tag v$version"
+            exit 1
+          fi
+      - run: npm pack --dry-run ./dist
+      - name: Publish
+        run: npm publish ./dist --provenance --access public

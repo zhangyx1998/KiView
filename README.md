@@ -37,7 +37,7 @@ board; configure it with `kiview.config.ts` ([docs/config.md](docs/config.md)).
 | `examples/boards` | sample projects: Blinky (KiCad 10), Legacy7 / Legacy8 (KiCad 7 / 8 formats), FourLayer (4 layers, planes), Hierarchy (3-level, sheets in a sub-directory) |
 | `examples/scripts` | the generator of the samples other than Blinky |
 | `tests/` | unit tests without KiCad, and the contract runner the CI export matrix uses |
-| `docs/` | architecture and contracts, config reference, CI |
+| `docs/` | architecture and contracts, config reference, CI and releases (a `v*` tag publishes to npm with provenance, [docs/ci.md](docs/ci.md#release)) |
 
 ## Supported KiCad versions
 
