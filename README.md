@@ -13,7 +13,9 @@ npx @zdv/kiview preview path/to/projects
 ```
 
 Every `<Name>/<Name>.kicad_pcb` (and `<Name>.kicad_pcb`) under the folder becomes a
-board; configure it with `kiview.config.ts` ([docs/config.md](docs/config.md)).
+board; configure it with `kiview.config.ts` ([docs/config.md](docs/config.md)). A folder
+with one board is a single-board site: the root URL is the viewer, with no home page
+(`single: false` keeps the card page; `single: 'Name'` picks one of several).
 
 ## Requirements
 

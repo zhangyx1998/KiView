@@ -269,6 +269,7 @@ export const siteSchema: Check = object({
   description: nullable(str),
   logo: nullable(str),
   theme: object({ appearance: oneOf('dark', 'light', 'auto'), accent: nullable(str), vars: recordOf(str) }),
+  single: nullable(nonEmpty),   // the board a single-board site shows (config `single`)
   generator: object({ name: oneOf('kiview'), version: nonEmpty }),
   kicad: str,
 })

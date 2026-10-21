@@ -50,8 +50,24 @@ export interface BoardEntry {
 export const sha256 = (s: string | Buffer) => createHash('sha256').update(s).digest('hex')
 const errorText = (e: unknown) => (e instanceof Error ? e.message : String(e))
 
+/** The published files' content hashes, the asset ids (StageRecord.hashes). */
+async function hashFiles(dir: string, files: string[]): Promise<Record<string, string>> {
+  const out: Record<string, string> = {}
+  for (const f of files) out[f] = sha256(await readFile(join(dir, f))).slice(0, 16)
+  return out
+}
+
+/** stage.json of a result dir; a record from before content hashes gets them now (and is rewritten). */
 async function loadRecord(dir: string): Promise<StageRecord | null> {
-  try { return JSON.parse(await readFile(join(dir, STAGE_JSON), 'utf8')) as StageRecord } catch { return null }
+  let record: StageRecord
+  try { record = JSON.parse(await readFile(join(dir, STAGE_JSON), 'utf8')) as StageRecord } catch { return null }
+  if (!record.hashes) {
+    try {
+      record.hashes = await hashFiles(dir, record.files)
+      await writeFile(join(dir, STAGE_JSON), JSON.stringify(record, null, 2))
+    } catch { return null }
+  }
+  return record
 }
 
 /** Newest complete result of a stage, whatever its key (fallback when a run fails). */
@@ -225,7 +241,7 @@ export class Pipeline {
       const ctx: StageContext = { ...input, snapshot, outDir, workDir, sem: this.sem, op, warn }
       const out = await stage.run(ctx)
       const record: StageRecord = {
-        stage: stage.name, key, result: out.result, files: out.files, warnings,
+        stage: stage.name, key, result: out.result, files: out.files, hashes: await hashFiles(outDir, out.files), warnings,
         seconds: Math.round((performance.now() - t0) / 10) / 100,
         kicad: input.backend ? `${input.backend.version?.raw ?? '?'} ${input.backend.id}` : null,
       }
@@ -258,8 +274,19 @@ export class Pipeline {
     return JSON.stringify([e.input?.hash ?? null, ...STAGES.filter(s => !s.late).map(s => e.stages.get(s.name)?.record?.key ?? null)])
   }
 
-  assetUrl(name: string, stage: string, key: string, file: string): string {
-    return `${this.config.base}${ASSET_DIR}/${encodeURIComponent(name)}/${stage}/${key}/${file.split('/').map(encodeURIComponent).join('/')}`
+  /** The asset path (under ASSET_DIR) of a stage's file: addressed by the file's content hash. */
+  assetPath(name: string, stage: string, record: StageRecord, file: string): string {
+    return `${name}/${stage}/${record.hashes?.[file] ?? record.key}/${file}`
+  }
+
+  assetUrl(name: string, stage: string, record: StageRecord, file: string): string {
+    return `${this.config.base}${ASSET_DIR}/${this.assetPath(name, stage, record, file).split('/').map(encodeURIComponent).join('/')}`
+  }
+
+  /** Dev: the cache file an asset path (as assetPath() makes them, decoded) is served from. */
+  assetFile(path: string): string | null {
+    for (const [p, file] of this.assetFiles(false)) if (p === `${ASSET_DIR}/${path}`) return file
+    return null
   }
 
   board(name: string): Board | null {
@@ -274,14 +301,14 @@ export class Pipeline {
       .sort((a, b) => a.name.localeCompare(b.name))
   }
 
-  /** Files to publish in a build: [asset path under the out dir, source path]. */
-  assetFiles(): [string, string][] {
+  /** Files to publish in a build: [asset path under the out dir, source path]. `served`: only boards in the manifest. */
+  assetFiles(served = true): [string, string][] {
     const out: [string, string][] = []
     for (const e of this.entries.values()) {
-      if (!this.board(e.src.name)) continue
+      if (served && !this.board(e.src.name)) continue
       for (const s of e.stages.values()) {
         if (!s.record || !s.dir) continue
-        for (const f of s.record.files) out.push([`${ASSET_DIR}/${e.src.name}/${s.stage}/${s.record.key}/${f}`, join(s.dir, f)])
+        for (const f of s.record.files) out.push([`${ASSET_DIR}/${this.assetPath(e.src.name, s.stage, s.record, f)}`, join(s.dir, f)])
       }
     }
     return out

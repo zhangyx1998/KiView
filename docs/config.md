@@ -19,12 +19,13 @@ reference. CLI flags (`--base`, `--out-dir`, `--cache-dir`, `--host`, `--port`,
 
 | key | default | status | |
 | --- | --- | --- | --- |
-| `title` | `'KiCad boards'` | phase 1 | top bar and page title |
+| `title` | `'KiCad boards'` | phase 1 | top bar and page title; on a single-board site, the board's title |
 | `description` | none | phase 1 | line on the home page |
 | `logo` | none | phase 1 | URL, `data:` URI or an image path relative to the root |
 | `theme.appearance` | `'dark'` | P2-d | `'dark'`, `'light'` or `'auto'` (follows the system); the default of the theme toggle, whose choice each browser remembers |
 | `theme.accent`, `theme.vars` | none | phase 1 | CSS colour (both themes); raw CSS custom properties (override the tokens in `client/src/style.css`) |
 | `boards` | `['.']` | phase 1 | a dir lists `<dir>/<Name>.kicad_pcb` and `<dir>/<Name>/<Name>.kicad_pcb`; a glob lists matching `.kicad_pcb` / `.kicad_pro` |
+| `single` | `'auto'` | 0.1.2 | single-board site (below): automatic for a folder with one board; `true`, `false`, or a board name |
 | `base` | `'/'` | phase 1 | public path, must start and end with `/` |
 | `outDir` | `.kiview/dist` | phase 1 | |
 | `cacheDir` | `.kiview/cache` | phase 1 | export cache, probe cache, Vite cache |
@@ -55,6 +56,25 @@ reference. CLI flags (`--base`, `--out-dir`, `--cache-dir`, `--host`, `--port`,
 | `assembly.boards` | `{}` | assembly | per board name: any of the keys above except `noteFields`; a board's entry wins key by key (`refNotes` are merged) |
 | `server.host/port/strictPort` | Vite's | phase 1 | dev and preview servers |
 | `server.allowedHosts` | `true` (any host) | phase 1 | a list of host names restricts the dev and preview servers to them |
+
+## Single-board site
+
+A folder with exactly one board is a single-board site by default (`single: 'auto'`):
+
+```ts
+export default defineConfig({ single: false })       // the card home page even for one board
+export default defineConfig({ single: true })        // the folder must hold one board
+export default defineConfig({ single: 'Blinky' })    // this one of several
+```
+
+The site is one board's viewer: the root URL opens it, with no home page, no board
+list in the sidebar (the board's facts and checks stay) and no "all boards" link; the
+diff and report pages sit at `/diff`, `/drc` and `/erc`, and `/board/<Name>/...` links
+of a multi-board site redirect there. The title defaults to the board's. With
+`single: true` the build fails when the folder holds several boards (the dev server
+warns and shows the first); with a name that is not a board, the build fails too (the dev
+server shows the "no board named" page until it appears). In dev, a board added to or
+removed from a single-board folder reloads the page into the other layout.
 
 ## Assembly mode
 

@@ -2,6 +2,7 @@
 // Home: one card per board. Loads only the manifest and the thumbnails.
 import { RouterLink } from 'vue-router'
 import { boards } from '../boards'
+import { boardRoute } from '../routes'
 import { boardFacts } from '../format'
 import { site } from '../site'
 import FabDownload from '../components/FabDownload.vue'
@@ -17,7 +18,7 @@ import RevisionBadge from '../components/RevisionBadge.vue'
     </p>
     <ul class="grid">
       <li v-for="b in boards" :key="b.name" class="card">
-        <RouterLink :to="{ name: 'board', params: { name: b.name } }" class="open">
+        <RouterLink :to="boardRoute(b.name)" class="open">
           <div class="thumb">
             <img v-if="b.thumbnail" :src="b.thumbnail.url" :width="b.thumbnail.width"
                  :height="b.thumbnail.height" :alt="b.title" loading="lazy" decoding="async" />

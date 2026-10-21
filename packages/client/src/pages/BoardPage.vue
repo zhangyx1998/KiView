@@ -1,10 +1,15 @@
 <script setup lang="ts">
 // Viewer page: board sidebar + peer panes (3D, Layers, Schematic, BOM, Assembly), any
 // of them open side by side. The pane components are async chunks, mounted when their
-// pane is first shown. Phones fold the board list and the pane toggles into one menu.
+// pane is first shown. Phones keep the board-list toggle in the bar and fold the pane
+// toggles, the fab download and the copy-link button into one overflow menu.
+// On a single-board site (site.single) the sidebar is the board's facts alone: no
+// board list, no link to a home page.
 import { computed, defineAsyncComponent, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { boards, boardByName } from '../boards'
+import { boardRoute } from '../routes'
+import { site } from '../site'
 import PaneLoading from '../components/PaneLoading.vue'
 import FabDownload from '../components/FabDownload.vue'
 import RevisionBadge from '../components/RevisionBadge.vue' // [P2-c]
@@ -21,6 +26,7 @@ const LayerBrowser = defineAsyncComponent({ loader: () => import('../components/
 
 const board = computed(() => boardByName(props.name) ?? null)
 const download = computed(() => board.value?.download)
+const single = !!site.single
 
 // ---- layout state (remembered per browser) -----------------------------------
 const store = {
@@ -150,7 +156,11 @@ function toggleMenu(e: MouseEvent): void {
   menuPos.value = { top: `${Math.round(r.bottom + 6)}px`, right: `${Math.round(window.innerWidth - r.right)}px` }
   menuOpen.value = !menuOpen.value
 }
-const onDocDown = (e: PointerEvent) => { if (menuOpen.value && !menu.value?.contains(e.target as Node)) menuOpen.value = false }
+const onDocDown = (e: PointerEvent) => {
+  const t = e.target as Element
+  // the fab file list pops up from a menu row (teleported to body): using it keeps the menu
+  if (menuOpen.value && !menu.value?.contains(t) && !t.closest?.('.fab-panel')) menuOpen.value = false
+}
 onMounted(() => document.addEventListener('pointerdown', onDocDown, true))
 onBeforeUnmount(() => document.removeEventListener('pointerdown', onDocDown, true))
 watch(narrow, n => { if (!n) menuOpen.value = false })
@@ -158,39 +168,46 @@ watch(() => props.name, () => { menuOpen.value = false })
 </script>
 
 <template>
+  <Teleport defer to="#topbar-lead">
+    <button class="side-toggle" :aria-pressed="sidebarOpen" :title="single ? 'Board info' : 'Board list'" @click="sidebarOpen = !sidebarOpen">☰</button>
+  </Teleport>
   <Teleport defer to="#topbar-slot">
-    <button v-if="!narrow" class="side-toggle" :aria-pressed="sidebarOpen" title="Board list" @click="sidebarOpen = !sidebarOpen">☰</button>
     <template v-if="board">
-      <span class="title">{{ board.title }}</span>
+      <!-- the top bar already reads the site title; a single-board site's defaults to the board's -->
+      <span v-if="board.title !== site.title" class="title">{{ board.title }}</span>
       <RevisionBadge :rev="board.rev" :name="board.name" :diff="board.diff" variant="bar" /><!-- [P2-c] -->
       <span class="spacer"></span>
-      <FabDownload v-if="download" :download="download" variant="bar" />
-      <CopyLink />
-      <div v-if="!narrow" class="modes" role="group" aria-label="Panes">
-        <button v-for="p in available" :key="p.id" :aria-pressed="isVisible(p.id)"
-                :title="isVisible(p.id) ? `Close the ${p.label} pane` : `Open the ${p.label} pane`" @click="toggle(p.id)">{{ p.label }}</button>
-      </div>
+      <template v-if="!narrow">
+        <FabDownload v-if="download" :download="download" variant="bar" />
+        <CopyLink />
+        <div class="modes" role="group" aria-label="Panes">
+          <button v-for="p in available" :key="p.id" :aria-pressed="isVisible(p.id)"
+                  :title="isVisible(p.id) ? `Close the ${p.label} pane` : `Open the ${p.label} pane`" @click="toggle(p.id)">{{ p.label }}</button>
+        </div>
+      </template>
     </template>
-    <div v-if="narrow" ref="menu" class="menu">
-      <button class="burger" :aria-expanded="menuOpen" aria-haspopup="true" title="Boards and panes" @click="toggleMenu">☰</button>
+    <div v-if="narrow && board" ref="menu" class="menu">
+      <button class="burger icon-btn" :aria-expanded="menuOpen" aria-haspopup="true" title="Panes, fab files and link" @click="toggleMenu">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="3" r="1.5" fill="currentColor" /><circle cx="8" cy="8" r="1.5" fill="currentColor" /><circle cx="8" cy="13" r="1.5" fill="currentColor" /></svg>
+      </button>
       <div v-if="menuOpen" class="menu-list" role="menu" :style="menuPos">
-        <button role="menuitem" @click="sidebarOpen = true; menuOpen = false">Boards…</button>
-        <template v-if="board">
-          <div class="menu-head">Panes</div>
-          <button v-for="p in available" :key="p.id" role="menuitemcheckbox" :aria-checked="isVisible(p.id)"
-                  :disabled="isVisible(p.id) && visible.length === 1" @click="toggle(p.id)">
-            <span class="check">{{ isVisible(p.id) ? '✓' : '' }}</span>{{ p.label }}
-          </button>
-        </template>
+        <div class="menu-head">Panes</div>
+        <button v-for="p in available" :key="p.id" role="menuitemcheckbox" :aria-checked="isVisible(p.id)"
+                :disabled="isVisible(p.id) && visible.length === 1" @click="toggle(p.id)">
+          <span class="check">{{ isVisible(p.id) ? '✓' : '' }}</span>{{ p.label }}
+        </button>
+        <div class="menu-head">Board</div>
+        <FabDownload v-if="download" :download="download" variant="menu" />
+        <CopyLink label />
       </div>
     </div>
   </Teleport>
 
   <div class="viewer" :class="{ narrow, open: sidebarOpen }">
     <aside v-if="sidebarOpen" class="sidebar">
-      <RouterLink to="/" class="back">← All boards</RouterLink>
-      <nav>
-        <RouterLink v-for="b in boards" :key="b.name" :to="{ name: 'board', params: { name: b.name } }"
+      <RouterLink v-if="!single" to="/" class="back">← All boards</RouterLink>
+      <nav v-if="!single">
+        <RouterLink v-for="b in boards" :key="b.name" :to="boardRoute(b.name)"
                     class="item" :class="{ current: b.name === name }" :aria-current="b.name === name ? 'page' : undefined">
           <span class="icon">
             <img v-if="b.thumbnail" :src="b.thumbnail.url" alt="" loading="lazy" decoding="async" />
@@ -206,7 +223,7 @@ watch(() => props.name, () => { menuOpen.value = false })
 
     <section v-if="!board" class="missing">
       <p>No board named <code>{{ name }}</code>.</p>
-      <RouterLink to="/">Back to all boards</RouterLink>
+      <RouterLink v-if="!single" to="/">Back to all boards</RouterLink>
     </section>
 
     <section v-else class="panes" :class="narrow ? 'column' : 'row'">
@@ -230,13 +247,12 @@ watch(() => props.name, () => { menuOpen.value = false })
 <style scoped>
 .title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .spacer { flex: 1; }
-.modes { display: flex; gap: 4px; }
-.side-toggle { padding: 2px 8px; }
+.modes { display: flex; align-self: stretch; }
+.side-toggle { padding: 0 16px; font-size: 16px; }
 /* the revision badge (P2-c) clips rather than run under the buttons; phones drop it */
 .revb-bar { overflow: hidden; }
 @media (max-width: 600px) { .revb-bar { display: none; } }
-.menu { position: relative; }
-.burger { padding: 2px 9px; font-size: 16px; line-height: 1.2; }
+.menu { position: relative; display: flex; align-self: stretch; }
 .menu-list {
   position: fixed;
   z-index: 20;
@@ -249,10 +265,15 @@ watch(() => props.name, () => { menuOpen.value = false })
   background: var(--panel);
   box-shadow: 0 6px 18px var(--shadow);
 }
-.menu-list button { border: 0; background: none; text-align: left; padding: 9px 10px; font-size: 14px; border-radius: var(--radius); }
-.menu-list button:hover:not(:disabled) { background: var(--panel-2); }
+/* menu rows undo the bar-control styling of style.css (the menu hangs inside the bar) */
+.menu-list button, .menu-list :deep(.fab-menu .link) { align-self: auto; display: flex; align-items: center; text-align: left; padding: 9px 10px; font-size: 14px; border-radius: var(--radius); box-shadow: none; }
+.menu-list button:hover:not(:disabled), .menu-list :deep(.fab-menu .link:hover) { background: var(--panel-2); }
 .menu-list button:disabled { opacity: 0.55; }
-.menu-head { padding: 8px 10px 2px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--line); margin-top: 4px; }
+.menu-list :deep(.fab-menu) { padding: 0; }
+.menu-list :deep(.fab-menu .link) { flex: 1; gap: 8px; }
+.menu-list :deep(.fab-menu .list-toggle) { padding: 9px 8px; color: var(--muted); }
+.menu-head { padding: 8px 10px 2px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.menu-head:not(:first-child) { border-top: 1px solid var(--line); margin-top: 4px; }
 .check { display: inline-block; width: 1.4em; color: var(--accent); }
 .drawer-rev { padding: 10px 6px 0; font-size: 12px; }
 @media (min-width: 601px) { .drawer-rev { display: none; } }

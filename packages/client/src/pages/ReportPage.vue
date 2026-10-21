@@ -9,6 +9,8 @@ import { RouterLink } from 'vue-router'
 import { boardByName } from '../boards'
 import PaneLoading from '../components/PaneLoading.vue'
 import { formatViewLink } from '../deepLink'
+import { boardRoute, reportRoute } from '../routes'
+import { site } from '../site'
 import { focusLayerView } from '../layers/bus'
 import type { CheckViolation } from '@kiview/kicad/types'
 import type { CheckReport, Severity } from '../types'
@@ -82,10 +84,7 @@ function locate(v: CheckViolation, i: number, key: string): void {
   focusLayerView({ board: board.value.name, x: item.pos.x, y: item.pos.y, label: v.description || titleOf(v) })
   if (narrow.value) view.value?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
 }
-const boardLink = (x: number, y: number) => ({
-  name: 'board', params: { name: props.name },
-  query: formatViewLink({ pane: 'layers', at: { x, y }, view: { x, y, z: 6 } }),
-})
+const boardLink = (x: number, y: number) => boardRoute(props.name, formatViewLink({ pane: 'layers', at: { x, y }, view: { x, y, z: 6 } }))
 const fmt = (v: number) => (+v.toFixed(3)).toString()
 
 // ---- layout ---------------------------------------------------------------------------------
@@ -98,16 +97,16 @@ onBeforeUnmount(() => narrowQuery?.removeEventListener('change', onNarrow))
 
 <template>
   <Teleport defer to="#topbar-slot">
-    <RouterLink v-if="board" :to="{ name: 'board', params: { name } }" class="crumb" :title="`Back to ${board.title}`">← {{ board.title }}</RouterLink>
+    <RouterLink v-if="board" :to="boardRoute(name)" class="crumb" :title="`Back to ${board.title}`">← <span class="name">{{ board.title }}</span></RouterLink>
     <span class="title">{{ kind.toUpperCase() }} report</span>
     <span class="spacer"></span>
     <nav v-if="board" class="switch" aria-label="Reports">
-      <RouterLink :to="{ name: 'report', params: { name, report: 'drc' } }" :aria-current="kind === 'drc' ? 'page' : undefined">DRC</RouterLink>
-      <RouterLink :to="{ name: 'report', params: { name, report: 'erc' } }" :aria-current="kind === 'erc' ? 'page' : undefined">ERC</RouterLink>
+      <RouterLink :to="reportRoute(name, 'drc')" :aria-current="kind === 'drc' ? 'page' : undefined">DRC</RouterLink>
+      <RouterLink :to="reportRoute(name, 'erc')" :aria-current="kind === 'erc' ? 'page' : undefined">ERC</RouterLink>
     </nav>
   </Teleport>
 
-  <section v-if="!board" class="missing"><p>No board named <code>{{ name }}</code>.</p><RouterLink to="/">Back to all boards</RouterLink></section>
+  <section v-if="!board" class="missing"><p>No board named <code>{{ name }}</code>.</p><RouterLink v-if="!site.single" to="/">Back to all boards</RouterLink></section>
 
   <div v-else class="report" :class="{ narrow, solo: !canLocate }">
     <section class="list" aria-label="Report items">
@@ -165,13 +164,14 @@ onBeforeUnmount(() => narrowQuery?.removeEventListener('change', onNarrow))
 </template>
 
 <style scoped>
-.crumb { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30vw; }
+.crumb { flex: 0 1 auto; min-width: 0; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .crumb:hover { color: var(--text); }
+/* phones: the arrow alone (the page heading names the board) */
+@media (max-width: 560px) { .crumb .name { display: none; } .crumb { flex: 0 0 auto; padding: 0 4px; } }
 .title { font-weight: 600; white-space: nowrap; }
 .spacer { flex: 1; }
-.switch { display: flex; gap: 2px; }
-.switch a { padding: 3px 9px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-2); font-size: 12px; }
-.switch a[aria-current='page'] { background: var(--pressed-bg); border-color: var(--pressed-line); }
+.switch { display: flex; align-self: stretch; }
+.switch a { font-size: 12px; }
 
 .missing { padding: 24px; color: var(--muted); }
 .report { display: flex; height: 100%; min-height: 0; }

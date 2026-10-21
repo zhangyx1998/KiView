@@ -5,9 +5,11 @@
 //   virtual:kiview/site    -> { site: SiteData }
 //
 // Dev: assets are served from the cache under <base>board-assets/, project files
-// are watched and re-exported on change (full reload for core stages, an HMR event
-// carrying the updated Board for late ones). Build: the same files are emitted
-// into <outDir>/board-assets/<Name>/<stage>/<key>/...
+// are watched and re-exported on change; every board whose data changed is pushed
+// as an HMR event carrying the new Board (the client's reactive store swaps it in
+// and the views refetch only the assets whose content-hashed URL changed; the page
+// reloads only when the site data changed). Build: the same files are emitted into
+// <outDir>/board-assets/<Name>/<stage>/<key>/...
 
 import { readFileSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
@@ -16,7 +18,7 @@ import { basename, dirname, extname, isAbsolute, resolve, sep } from 'node:path'
 import { openKicad } from '@kiview/kicad'
 import type { Plugin, ResolvedConfig as ViteResolvedConfig, ViteDevServer } from 'vite'
 
-import { resolveConfig, type ResolvedConfig, type UserConfig } from './config.ts'
+import { DEFAULT_TITLE, pickSingle, resolveConfig, type ResolvedConfig, type UserConfig } from './config.ts'
 import { BOARD_EVENT, BOARDS_MODULE, SITE_MODULE, STATUS_PATH, type BoardEvent, type SiteData } from './contract.ts'
 import { isProjectFile } from './discover.ts'
 import { ASSET_DIR, Pipeline, type Logger } from './pipeline.ts'
@@ -87,13 +89,29 @@ export default function kiview(options: PluginOptions = {}): Plugin {
     return { url: `${config.base}${SITE_ASSETS}/${basename(file)}`, file }
   }
 
+  /** The board of a single-board site (config `single`), or null. A doubtful choice fails the build; dev warns. */
+  function single(p: Pipeline): string | null {
+    const { name, problem } = pickSingle(config.single, p.boards().map(b => b.name))
+    if (problem && building) throw new Error(problem)
+    if (problem) log.warn(problem)
+    return name
+  }
+
+  /** The configured title, else the single board's, else the default. */
+  function title(p: Pipeline, s = single(p)): string {
+    if (config.title) return config.title
+    return (s && p.board(s)?.title) || DEFAULT_TITLE
+  }
+
   async function siteData(): Promise<SiteData> {
-    const p = await getPipeline()
+    const p = await ready()
+    const s = single(p)
     return {
-      title: config.title,
+      title: title(p, s),
       description: config.description,
       logo: logo()?.url ?? null,
       theme: config.theme,
+      single: s,
       generator: { name: 'kiview', version: VERSION },
       kicad: p.kit.describe(),
     }
@@ -112,28 +130,47 @@ export default function kiview(options: PluginOptions = {}): Plugin {
       // serialise refreshes; each re-discovers so added / removed boards are picked up
       chain = chain.then(async () => {
         const p = await ready()
-        let changed: boolean
-        if (name === ALL) changed = await p.refreshAll()
+        const before = await snapshot(p)
+        if (name === ALL) await p.refreshAll()
         else {
           const src = (await p.discover()).find(s => s.name === name)
-          changed = src ? await p.refresh(src) : p.entries.delete(name)
+          if (src) await p.refresh(src)
+          else p.entries.delete(name)
         }
-        if (changed) reload()
+        await publish(p, before)
       }).catch(e => log.error(String(e)))
     }, 300))
   }
 
-  function invalidate(): void {
-    const graph = server?.environments?.client?.moduleGraph
-    const mod = graph?.getModuleById(ids.boards)
-    if (mod) graph!.invalidateModule(mod)
+  /** What the page holds: every board's data and the site data, as JSON, to tell what a refresh changed. */
+  async function snapshot(p: Pipeline): Promise<{ boards: Map<string, string>; site: string }> {
+    return { boards: new Map(p.boards().map(b => [b.name, JSON.stringify(b)])), site: JSON.stringify(await siteData()) }
   }
 
-  function reload(): void {
+  /** Push the boards a refresh changed (added, updated, removed); reload only when the site data changed. */
+  async function publish(p: Pipeline, before: Awaited<ReturnType<typeof snapshot>>): Promise<void> {
+    const after = await snapshot(p)
+    if (after.site !== before.site) { reload('site data changed'); return }
+    const changed = [...new Set([...before.boards.keys(), ...after.boards.keys()])].filter(n => before.boards.get(n) !== after.boards.get(n))
+    for (const n of changed) pushBoard(p, n)
+    if (changed.length) log.info(`${changed.join(', ')}: updated in the page`)
+    else invalidate()
+  }
+
+  function invalidate(): void {
+    const graph = server?.environments?.client?.moduleGraph
+    if (!graph) return
+    for (const id of [ids.boards, ids.site]) {
+      const mod = graph.getModuleById(id)
+      if (mod) graph.invalidateModule(mod)
+    }
+  }
+
+  function reload(why: string): void {
     if (!server) return
     invalidate()
     server.ws.send({ type: 'full-reload' })
-    log.info('boards changed, page reloaded')
+    log.info(`${why}, page reloaded`)
   }
 
   function pushBoard(p: Pipeline, name: string): void {
@@ -186,9 +223,12 @@ export default function kiview(options: PluginOptions = {}): Plugin {
       return undefined
     },
 
-    transformIndexHtml(html) {
+    // The built page carries the final title; in dev the pipeline may still be exporting,
+    // so the page gets the configured one and the client sets document.title from the site data.
+    async transformIndexHtml(html) {
       const esc = (s: string) => s.replace(/[&<>"]/g, ch => `&#${ch.charCodeAt(0)};`)
-      return html.replace(/<title>[^<]*<\/title>/, `<title>${esc(config.title)}</title>`)
+      const t = building ? title(await ready()) : config.title ?? DEFAULT_TITLE
+      return html.replace(/<title>[^<]*<\/title>/, `<title>${esc(t)}</title>`)
     },
 
     configureServer(s) {
@@ -218,11 +258,9 @@ export default function kiview(options: PluginOptions = {}): Plugin {
           return
         }
         if (!url.startsWith(assets)) return next()
-        const rel = decodeURIComponent(url.slice(assets.length))
-        const file = resolve(config.cacheDir, rel)
-        if (!file.startsWith(config.cacheDir + sep) || rel.split('/').some(p => p.startsWith('.'))) {
-          res.statusCode = 403; res.end(); return
-        }
+        // only what a stage record publishes is served (the path's id is the file's content hash)
+        const file = (await getPipeline()).assetFile(decodeURIComponent(url.slice(assets.length)))
+        if (!file) { res.statusCode = 404; res.end(); return }
         try {
           const body = await readFile(file)
           res.setHeader('Content-Type', CONTENT_TYPES[extname(file)] ?? 'application/octet-stream')

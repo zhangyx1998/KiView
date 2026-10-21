@@ -6,7 +6,9 @@
 // Caching: a stage's result lives in <cacheDir>/<Name>/<stage>/<key>/ with its files
 // and a stage.json. <key> hashes the stage name and version, its recipe (settings),
 // the KiCad backend and version, and the content of the project files it reads, so
-// an entry never changes once written and its files are served as immutable. A
+// an entry never changes once written. Its files are served as immutable assets
+// addressed by their own content hash (StageRecord.hashes), so an asset's URL only
+// changes when the file does: after an edit the client refetches what changed. A
 // stage whose key already has a stage.json is not run again. If a run fails, the
 // newest earlier result of that stage is served (marked stale).
 
@@ -94,6 +96,8 @@ export interface StageRecord<R = unknown> {
   key: string
   result: R
   files: string[]
+  /** Content hash (16 hex digits) of each published file: its asset URL. Filled in for records written before it existed. */
+  hashes?: Record<string, string>
   warnings: string[]
   seconds: number
   /** "10.0.6 cli-modern", for the status page. */

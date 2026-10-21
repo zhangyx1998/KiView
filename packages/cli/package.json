@@ -1,6 +1,6 @@
 {
   "name": "@kiview/cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Turn a folder of KiCad projects into a static website: board cards, a 3D viewer and a layer browser.",
   "license": "MIT",
@@ -11,9 +11,9 @@
   },
   "files": ["bin", "dist", "src"],
   "dependencies": {
-    "@kiview/client": "0.1.1",
-    "@kiview/kicad": "0.1.1",
-    "@kiview/vite-plugin": "0.1.1",
+    "@kiview/client": "0.1.2",
+    "@kiview/kicad": "0.1.2",
+    "@kiview/vite-plugin": "0.1.2",
     "@vitejs/plugin-vue": "6.0.9",
     "vite": "8.3.2"
   },

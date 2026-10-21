@@ -1,6 +1,6 @@
 {
   "name": "@kiview/vite-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Vite plugin: discovers KiCad projects, exports them through @kiview/kicad into a content-addressed cache and serves them as virtual:kiview/boards.",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "files": ["dist", "src"],
   "dependencies": {
-    "@kiview/kicad": "0.1.1"
+    "@kiview/kicad": "0.1.2"
   },
   "peerDependencies": {
     "vite": "^8.0.0"

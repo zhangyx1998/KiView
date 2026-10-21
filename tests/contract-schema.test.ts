@@ -94,4 +94,6 @@ test('schema: site payload problems are reported', () => {
   assert.match(validateSite({ ...site, generator: { name: 'vitepress', version: '1' } }).join('\n'), /site\.generator\.name/)
   const { kicad: _, ...noKicad } = site
   assert.match(validateSite(noKicad).join('\n'), /site\.kicad: expected a string/)
+  assert.deepEqual(validateSite({ ...site, single: 'Blinky' }), [])
+  assert.match(validateSite({ ...site, single: '' }).join('\n'), /site\.single/)
 })

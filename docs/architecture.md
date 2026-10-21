@@ -100,8 +100,10 @@ recipe(), run(ctx), apply(board, result, url) }`, one module per stage, register
 - runs only when `skip()` returns null (else its features show the reason);
 - is keyed by `sha256(name, version, recipe, backend id + KiCad version, content of
   its input files)`; the result lives in `<cacheDir>/<Name>/<stage>/<key>/` (its files
-  plus `stage.json`), written atomically (work dir, then rename) and served as
-  immutable `<base>board-assets/<Name>/<stage>/<key>/<file>`;
+  plus `stage.json`, which records each file's content hash), written atomically (work
+  dir, then rename) and served as immutable `<base>board-assets/<Name>/<stage>/<hash>/<file>`,
+  `<hash>` being the file's own content hash: an edit changes only the URLs of the
+  files it changed, so the dev page (and a visitor's browser cache) refetch just those;
 - runs concurrently with the other stages of the board; every backend call goes
   through the shared semaphore (`concurrency` KiCad processes at once);
 - on failure falls back to the newest earlier result of that stage (stale) and logs.
@@ -140,9 +142,13 @@ import { site } from 'virtual:kiview/site'       // SiteData (title, logo, theme
 Until a phase-2 stage exists, its fields are `null` and its features say
 "not implemented yet" (or why the backend cannot do it).
 
-Dev updates: core stage changes invalidate the module and full-reload the page;
-late stage results arrive as the HMR event `kiview:board` (`BoardEvent`),
-applied by the reactive store `client/src/boards.ts`.
+Dev updates: after a re-export (a board file edited, a board added or removed) and
+when a late stage finishes, every board whose data changed arrives as the HMR event
+`kiview:board` (`BoardEvent`, null for a removed board), applied by the reactive store
+`client/src/boards.ts`; the views refetch only the assets whose content-hashed URL
+changed (one edited layer redraws that layer), and keep their view state. The virtual
+modules are invalidated for the next load; the page is reloaded only when the site data
+changed (a single-board site's title or board).
 
 ### Layer SVGs (unchanged from the source viewer)
 
@@ -175,7 +181,9 @@ flags over it and passes the resolved config to the plugin.
 The client package is the Vite root (`root = @kiview/client`), the user's
 folder is only read by the plugin. Vite's own cache goes to `<cacheDir>/.vite`, the
 build to `outDir`, `server.fs.allow` covers the client, the cache and the project
-root. Routes are real paths (`/` and `/board/<name>`); static hosts need one rewrite
+root. Routes are real paths (`/` and `/board/<name>`, or on a single-board site
+(config `single`, `SiteData.single`) `/`, `/diff`, `/drc`, `/erc` for the one board;
+`client/src/routes.ts` builds the links for both layouts); static hosts need one rewrite
 to `index.html` (`public/_redirects` ships it for Cloudflare / Netlify). The build
 also writes `_headers` so fab zips download under their own name.
 

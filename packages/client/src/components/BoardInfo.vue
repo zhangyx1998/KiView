@@ -5,6 +5,7 @@
 // Board.reports; missing parts say why (Board.features).
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { reportRoute } from '../routes'
 import type { Board, Severity } from '../types'
 
 const props = defineProps<{ board: Board }>()
@@ -67,7 +68,7 @@ const sevLabel: Record<Severity, string> = { error: 'errors', warning: 'warnings
     <h3>Checks</h3>
     <ul class="checks">
       <li v-for="r in reports" :key="r.kind">
-        <RouterLink v-if="r.summary" :to="{ name: 'report', params: { name: board.name, report: r.kind } }" class="check">
+        <RouterLink v-if="r.summary" :to="reportRoute(board.name, r.kind)" class="check">
           <span class="kind">{{ r.label }}</span>
           <template v-if="SEV.some(k => r.summary!.counts[k])">
             <span v-for="k in SEV" v-show="r.summary.counts[k]" :key="k" class="count" :class="k">{{ r.summary.counts[k] }} {{ sevLabel[k] }}</span>

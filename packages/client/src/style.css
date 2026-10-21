@@ -134,3 +134,24 @@ code, .mono { font-family: var(--mono); font-size: 12px; }
 /* an inline SVG icon inside a button */
 .icon-btn { display: inline-grid; place-items: center; padding: 3px 7px; }
 .icon-btn svg { width: 16px; height: 16px; display: block; }
+
+/* Top bar controls (App.vue's bar and what pages teleport into its slot): borderless,
+   the full height of the bar, a pressed state as a filled background with an accent
+   underline. Pop-up menus inside the bar style their own items. */
+.topbar button, .topbar .fab-bar .link, .topbar .switch a {
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+.topbar button:hover, .topbar .fab-bar .link:hover, .topbar .switch a:hover,
+.topbar button:focus-visible, .topbar .fab-bar .link:focus-visible, .topbar .switch a:focus-visible { background: var(--panel-2); outline: none; }
+.topbar button[aria-pressed='true'], .topbar button[aria-expanded='true'], .topbar .switch a[aria-current='page'] {
+  background: var(--pressed-bg);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}

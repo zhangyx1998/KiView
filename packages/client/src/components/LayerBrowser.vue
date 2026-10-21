@@ -131,7 +131,11 @@ function loadBoard(b: Board): void {
   soloRestore = m.soloRestore
   pz.fit()
 }
-watch(() => props.board, loadBoard, { immediate: true })
+// another board: its remembered layers and side, fitted. The same board re-exported
+// (dev HMR) keeps the view; layers whose URL changed are refetched below, and the
+// view is refitted only when it was fitted and the outline changed.
+watch(() => props.board.name, () => loadBoard(props.board), { immediate: true })
+watch(() => JSON.stringify(props.board.bounds), () => { if (pz.fitted.value) pz.fit() })
 useLayerLink({ board: () => props.board, enabled, side, activePreset, pz, applyPreset, setEnabled })   // [P2-d]
 watch([enabled, side, soloId], () => remember(props.board, { enabled: enabled.value, side: side.value, soloId: soloId.value, soloRestore }))
 // [assembly] the assembly pane picks the side of its step: that side's copper / mask /

@@ -7,7 +7,9 @@
 // Placed parts are ticked per refdes or per step and kept in localStorage per board,
 // revision and variant; a JSON file moves a session between devices. DNP parts are only
 // listed to leave empty. Board notes (ASSEMBLY.md, config) are shown on top; a print
-// stylesheet turns the list into a paper checklist.
+// stylesheet turns the list into a paper checklist. A narrow pane (a phone, where the
+// Layers pane shares the screen) drops the step buttons (the rows' checkboxes and chips
+// do the same) and packs the list.
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import type { Board, Footprint } from '../types'
 import { useBom, useNetlist, useParts } from '../crossprobe/data'
@@ -296,7 +298,7 @@ watch(plan, () => { if (active.value) highlight() })
       <p v-if="message" class="message" :class="message.kind" role="status">{{ message.text }}</p>
 
       <div v-if="variantNote" class="variant-note" v-html="variantNote"></div>
-      <details v-if="notes.length" class="notes" open>
+      <details v-if="notes.length" class="notes" :open="!narrow">
         <summary>Assembly notes</summary>
         <div v-for="n in notes" :key="n.source" class="note-block">
           <div class="md" v-html="n.html"></div>
@@ -318,6 +320,7 @@ watch(plan, () => { if (active.value) highlight() })
             <span class="what">
               <span class="value">{{ s.value }}</span>
               <span class="pkg">{{ s.pkg }}</span>
+              <span v-if="narrow && (i !== index || showEmpty)" class="refs-inline mono">{{ s.refs.join(' ') }}</span>
             </span>
             <span class="side" :class="s.side ?? 'none'">{{ sideLabel(s.side) }}</span>
             <span class="qty mono">{{ s.refs.filter(isPlaced).length }}/{{ s.refs.length }}</span>
@@ -486,6 +489,52 @@ dd.mono { font-size: 14px; }
 .enote { display: block; font-size: 14px; color: var(--muted); }
 .keys { font-size: 13px; padding: 10px 12px 16px; margin: 0; }
 @media (hover: none) { .keys { display: none; } }
+
+/* narrow pane: no step buttons, a thin header, one-line rows, small chips */
+.narrow .controls, .narrow .keys { display: none; }
+.narrow .head { padding: 6px 10px 5px; gap: 4px; }
+.narrow .bar { height: 5px; border-radius: 3px; }
+.narrow .count { font-size: 12px; }
+.narrow .count b { font-size: 13px; }
+.narrow .tools { padding: 4px 8px 0; gap: 4px; }
+.narrow .tools button { min-height: 28px; font-size: 12px; padding: 2px 8px; }
+.narrow .variant { font-size: 12px; }
+.narrow .variant select { font-size: 13px; min-height: 28px; }
+.narrow .message { margin: 4px 8px 0; font-size: 12px; }
+.narrow .variant-note { margin: 6px 8px 0; padding: 5px 8px; font-size: 13px; }
+.narrow .notes { margin: 6px 8px 0; }
+.narrow .notes summary { padding: 5px 8px; font-size: 13px; }
+.narrow .note-block { padding: 0 8px 4px; }
+.narrow .md { font-size: 13px; line-height: 1.4; }
+.narrow .steps { margin: 4px 0 0; padding: 0 4px; }
+.narrow .step { margin: 0 0 2px; border-radius: 4px; scroll-margin-top: 60px; }
+.narrow .step-head { gap: 6px; padding: 3px 6px; min-height: 32px; }
+.narrow .check { width: 18px; height: 18px; }
+.narrow .num { min-width: 18px; font-size: 11px; }
+.narrow .what { flex-direction: row; align-items: baseline; gap: 6px; }
+.narrow .value, .narrow .current .value { font-size: 14px; flex: 0 0 auto; max-width: 50%; }
+.narrow .pkg { font-size: 11px; flex: 1 1 auto; }
+.narrow .side { font-size: 9px; padding: 1px 4px; letter-spacing: 0.04em; }
+.narrow .qty { font-size: 12px; }
+.narrow .refs-line { display: none; }
+.refs-inline { flex: 0 0 auto; max-width: 40%; font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right; }
+.narrow .pkg { flex: 1 1 0; }
+.narrow .detail { padding: 0 8px 6px; }
+.narrow dl { margin: 0 0 4px; gap: 0; font-size: 12px; }
+.narrow dt { flex: 0 0 64px; }
+.narrow dd.mono { font-size: 11px; }
+.narrow .polarity { margin: 0 0 6px; padding: 4px 8px; font-size: 13px; }
+.narrow .dot { width: 8px; height: 8px; }
+.narrow .chips { gap: 4px; }
+.narrow .chip { min-width: 0; min-height: 30px; padding: 2px 8px; font-size: 13px; gap: 4px; border-radius: 6px; border-width: 1px; }
+.narrow .chip .tick { width: 14px; height: 14px; font-size: 11px; border-width: 1px; }
+.narrow .chip .dir { font-size: 10px; }
+.narrow .part-notes { margin: 6px 0 0; padding: 4px 8px 4px 20px; font-size: 12px; }
+.narrow .leave-empty { margin: 6px 4px 0; padding: 5px 8px; }
+.narrow .leave-empty h3 { font-size: 13px; }
+.narrow .leave-empty button { min-height: 28px; font-size: 12px; }
+.narrow .leave-empty ul { font-size: 12px; }
+.narrow .enote { font-size: 11px; }
 </style>
 
 <style>

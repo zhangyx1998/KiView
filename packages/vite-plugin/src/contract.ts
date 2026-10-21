@@ -7,8 +7,9 @@
 // are separate assets under <base>board-assets/<Name>/<stage>/<key>/..., fetched on
 // demand. Asset keys are content hashes, so every asset URL is immutable.
 //
-// Dev: when a late stage (fab) finishes, the plugin sends the HMR event
-// BOARD_EVENT with the updated Board; core changes trigger a full reload.
+// Dev: when a board's data changed (a re-export after an edit, a late stage such as
+// the fab bundle finishing, a board added or removed) the plugin sends the HMR event
+// BOARD_EVENT with the new Board (null: removed); the page is not reloaded.
 //
 // Types only (no runtime code besides constants), so the client can import them.
 // Markers: [phase 1] filled now; [P2-x] the field exists, phase 2 fills it (until
@@ -34,6 +35,8 @@ export interface BoardEvent { name: string; board: Board | null }
 export interface SiteData {
   title: string
   description: string | null
+  /** Single-board site (config `single`): the board the root URL shows, or null for the card home page. */
+  single: string | null
   /** Logo URL (resolved against base), or null. */
   logo: string | null
   theme: { appearance: 'dark' | 'light' | 'auto'; accent: string | null; vars: Record<string, string> }

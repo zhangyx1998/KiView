@@ -6,7 +6,8 @@ import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 import type { BoardDownload, FabItem } from '../types'
 import { formatBytes } from '../format'
 
-const props = defineProps<{ download: BoardDownload; variant?: 'card' | 'bar' }>()
+/** card: home page card footer; bar: the top bar; menu: a row of the board page's phone menu. */
+const props = defineProps<{ download: BoardDownload; variant?: 'card' | 'bar' | 'menu' }>()
 
 const open = ref(false)
 const toggle = ref<HTMLElement | null>(null)
@@ -144,20 +145,13 @@ const badgeTitle = computed(() =>
 .fab-card .link:hover, .fab-card .link:focus-visible { color: var(--accent); outline: none; }
 .fab-card .link:hover .size { color: inherit; }
 
-/* top bar: styled like the toolbar buttons */
-.fab-bar .link {
-  padding: 3px 10px;
-  background: var(--panel-2);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-.fab-bar .link:hover, .fab-bar .link:focus-visible { border-color: #3a414b; outline: none; }
-@media (max-width: 820px) {
-  .fab-bar .link { padding: 3px 7px; }
-  .fab-bar .label, .fab-bar .size { display: none; }
-  .fab-bar { gap: 4px; }
-  .fab-bar .badge { padding: 0 6px; font-weight: 700; }
-  .fab-bar .badge .long { display: none; }
-  .fab-bar .badge .short { display: inline; }
-}
+/* top bar: the link and the list toggle are full-height bar controls (style.css, .topbar) */
+.fab-bar { align-self: stretch; gap: 0; }
+.fab-bar .list-toggle { height: auto; padding: 0 6px; }
+.fab-bar .badge { margin: 0 6px; }
+
+/* phone menu row: the link fills the row, the list toggle and badge sit at its end */
+.fab-menu { display: flex; align-items: center; gap: 6px; padding: 0 4px 0 10px; }
+.fab-menu .link { flex: 1; padding: 9px 0; }
+.fab-menu .list-toggle { height: 28px; padding: 0 8px; }
 </style>

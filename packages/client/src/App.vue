@@ -7,7 +7,8 @@ import ThemeToggle from './components/ThemeToggle.vue'   // [P2-d]
 <template>
   <div class="app">
     <header class="topbar">
-      <RouterLink to="/" class="home">
+      <div id="topbar-lead" class="lead"></div><!-- the board page's list toggle -->
+      <RouterLink to="/" class="home" :title="site.title">
         <img v-if="site.logo" :src="site.logo" alt="" class="logo" />{{ site.title }}
       </RouterLink>
       <div id="topbar-slot" class="slot"></div>
@@ -25,28 +26,22 @@ import ThemeToggle from './components/ThemeToggle.vue'   // [P2-d]
   flex: 0 0 var(--topbar-h);
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 14px;
+  gap: 8px;
+  padding: 0;
   border-bottom: 1px solid var(--line);
   background: var(--panel);
+  overflow: hidden;
 }
-.home { font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
+.lead { display: flex; align-self: stretch; }
+.lead:empty { display: none; }
+.lead:empty + .home { margin-left: 12px; }
+/* the title gets the width the controls leave (they never shrink), then ellipsises */
+.home { flex: 0 1 auto; min-width: 0; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .home { display: inline-flex; align-items: center; gap: 8px; }
-.logo { height: 22px; width: auto; display: block; }
-.slot { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; }
+.logo { height: 22px; width: auto; display: block; flex: 0 0 auto; }
+.slot { flex: 1 1 0; min-width: 0; align-self: stretch; display: flex; align-items: center; gap: 6px; }
 .main { flex: 1; min-height: 0; overflow: auto; }
-.topbar { overflow: hidden; }
 @media (max-width: 820px) {
-  .topbar { gap: 8px; padding: 0 8px; }
-  .home { max-width: 40vw; overflow: hidden; text-overflow: ellipsis; }
+  .lead:empty + .home { margin-left: 8px; }
 }
-/* [P2-d] phones: the board's controls need the room */
-@media (max-width: 560px) {
-  .topbar { gap: 6px; padding: 0 6px; }
-  .slot { gap: 6px; }
-  .home { max-width: 24vw; }
-  .topbar:has(.slot:empty) .home { max-width: 70vw; }
-}
-/* [assembly] narrow phones: the board page's controls need a little more */
-@media (max-width: 420px) { .topbar:has(.slot:not(:empty)) .home { max-width: 14vw; } }
 </style>

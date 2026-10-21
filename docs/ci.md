@@ -17,7 +17,7 @@
 they differ), commit, then tag and push:
 
 ```sh
-git tag -a v0.1.1 -m "kiview 0.1.1" && git push origin main v0.1.1
+git tag -a v0.1.2 -m "kiview 0.1.2" && git push origin main v0.1.2
 ```
 
 A pushed `v*` tag (or "Run workflow" on a tag ref) runs `npm ci`, typecheck, tests and

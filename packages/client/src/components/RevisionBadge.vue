@@ -4,6 +4,7 @@
 // revision diff was built (config revision.diff), a link to the changes page.
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { diffRoute } from '../routes'
 import type { BoardDiff, BoardRevision } from '../types'
 
 const props = defineProps<{ rev: BoardRevision; name: string; diff?: BoardDiff | null; variant?: 'card' | 'bar' }>()
@@ -35,7 +36,7 @@ const changes = computed(() => {
     <span v-if="rev.git" class="commit mono" :title="details">
       {{ rev.git.short }}<span v-if="rev.git.dirty" class="dirty" title="uncommitted changes in the project" aria-label="modified">●</span>
     </span>
-    <RouterLink v-if="changes" class="changes" :to="{ name: 'board-diff', params: { name } }" :title="changes.title" @click.stop>
+    <RouterLink v-if="changes" class="changes" :to="diffRoute(name)" :title="changes.title" @click.stop>
       Δ {{ changes.since }}<span class="summary">: {{ changes.summary }}</span>
     </RouterLink>
   </span>

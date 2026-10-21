@@ -66,8 +66,8 @@ export function assembleBoard(e: BoardEntry, p: Pipeline): Board {
   for (const stage of STAGES) {
     const s = e.stages.get(stage.name)
     if (s?.record) {
-      const key = s.record.key
-      stage.apply(board, s.record.result, f => p.assetUrl(src.name, stage.name, key, f))
+      const record = s.record
+      stage.apply(board, record.result, f => p.assetUrl(src.name, stage.name, record, f))
     }
     const status: FeatureStatus = s?.record ? { available: true }
       : { available: false, reason: s?.skipped ?? (s?.error ? `export failed: ${s.error}` : 'not exported yet') }

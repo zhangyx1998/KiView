@@ -5,6 +5,9 @@
 import { ref } from 'vue'
 import { flushLink } from '../linkState'
 
+/** `label`: a menu row (icon and text) instead of the bare icon button. */
+defineProps<{ label?: boolean }>()
+
 const state = ref<'idle' | 'copied' | 'failed'>('idle')
 let timer: ReturnType<typeof setTimeout> | null = null
 
@@ -26,7 +29,7 @@ async function copy(): Promise<void> {
 </script>
 
 <template>
-  <button class="icon-btn copy-link" type="button" :title="state === 'copied' ? 'Link copied' : 'Copy a link to this view'"
+  <button class="copy-link" :class="label ? 'with-label' : 'icon-btn'" type="button" :title="state === 'copied' ? 'Link copied' : 'Copy a link to this view'"
           :aria-label="state === 'copied' ? 'Link copied' : 'Copy a link to this view'" @click="copy">
     <svg v-if="state !== 'copied'" viewBox="0 0 16 16" aria-hidden="true">
       <g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
@@ -37,5 +40,11 @@ async function copy(): Promise<void> {
     <svg v-else viewBox="0 0 16 16" aria-hidden="true">
       <path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
+    <span v-if="label">{{ state === 'copied' ? 'Link copied' : 'Copy link to this view' }}</span>
   </button>
 </template>
+
+<style scoped>
+.with-label { display: inline-flex; align-items: center; gap: 8px; }
+.with-label svg { width: 16px; height: 16px; flex: 0 0 auto; }
+</style>

@@ -8,6 +8,8 @@
 import { computed, onBeforeUnmount, onMounted, reactive, ref, shallowRef, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { boardByName } from '../boards'
+import { boardRoute } from '../routes'
+import { site } from '../site'
 import type { LayerDiff } from '../types'
 
 const props = defineProps<{ name: string }>()
@@ -174,7 +176,7 @@ const since = computed(() => diff.value?.base ? (diff.value.base.tag ?? diff.val
 <template>
   <Teleport defer to="#topbar-slot">
     <template v-if="board">
-      <RouterLink :to="{ name: 'board', params: { name } }" class="crumb">← {{ board.title }}</RouterLink>
+      <RouterLink :to="boardRoute(name)" class="crumb">← {{ board.title }}</RouterLink>
       <span class="title">Changes<template v-if="since"> since <span class="mono">{{ since }}</span></template></span>
     </template>
   </Teleport>
@@ -183,7 +185,7 @@ const since = computed(() => diff.value?.base ? (diff.value.base.tag ?? diff.val
     <p v-if="!board">No board named <code>{{ name }}</code>.</p>
     <p v-else>No revision diff for this board. Turn it on with <code>revision: { diff: true }</code> in the config
       (the project must be in a git repository).</p>
-    <RouterLink to="/">Back to all boards</RouterLink>
+    <RouterLink v-if="!site.single" to="/">Back to all boards</RouterLink>
   </section>
 
   <div v-else class="diff">

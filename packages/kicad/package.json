@@ -1,6 +1,6 @@
 {
   "name": "@kiview/kicad",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "One interface over several ways of driving KiCad (kicad-cli 9+, 7/8, pcbnew Python, Docker): board info, layer SVGs, 3D, thumbnails, schematic, BOM, fab.",
   "license": "MIT",

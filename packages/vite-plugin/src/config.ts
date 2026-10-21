@@ -110,7 +110,7 @@ export interface AssemblyBoardConfig {
 }
 
 export interface UserConfig {
-  /** Site title (top bar, page title). [phase 1] Default 'KiCad boards'. */
+  /** Site title (top bar, page title). [phase 1] Default 'KiCad boards' (the board's title on a single-board site). */
   title?: string
   /** One line under the title on the home page. [phase 1] */
   description?: string
@@ -124,6 +124,14 @@ export interface UserConfig {
    * (`"hw/**\/*.kicad_pcb"`). [phase 1] Default ['.'].
    */
   boards?: string | string[]
+  /**
+   * Single-board site: the root URL is the board's viewer, with no home page, board list
+   * or "all boards" link (the diff and report pages move to `/diff`, `/drc`, `/erc`).
+   * 'auto' (the default): when the folder holds exactly one board; `true`: the only
+   * board (the build fails with several); `false`: always the card home page; a name:
+   * that board.
+   */
+  single?: boolean | 'auto' | string
   /** Public base path of the site, e.g. '/boards/'. [phase 1] Default '/'. */
   base?: string
   /** Build output, relative to the root. [phase 1] Default '.kiview/dist'. */
@@ -197,11 +205,14 @@ export function defineConfig(config: UserConfig): UserConfig {
 /** UserConfig with defaults applied and paths absolute. */
 export interface ResolvedConfig {
   root: string
-  title: string
+  /** null: not configured (the plugin uses the single board's title, else 'KiCad boards'). */
+  title: string | null
   description: string | null
   logo: string | null
   theme: Required<Pick<ThemeConfig, 'appearance'>> & { accent: string | null; vars: Record<string, string> }
   boards: string[]
+  /** 'auto', false, true (the only board) or a board name; see pickSingle(). */
+  single: boolean | 'auto' | string
   base: string
   outDir: string
   cacheDir: string
@@ -248,6 +259,26 @@ function resolveAssembly(a: UserConfig['assembly'], name: string): ResolvedAssem
 
 const abs = (root: string, p: string) => (isAbsolute(p) ? p : resolve(root, p))
 
+export const DEFAULT_TITLE = 'KiCad boards'
+
+/**
+ * The board a single-board site shows, from `single` and the discovered board names:
+ * the named board, or the only one ('auto': only when there is exactly one). `problem`
+ * says why the choice is doubtful (the build fails on it, the dev server warns and
+ * shows `name`, or the home page when null).
+ */
+export function pickSingle(single: boolean | 'auto' | string, names: readonly string[]): { name: string | null; problem: string | null } {
+  if (!single) return { name: null, problem: null }
+  if (single === 'auto') return { name: names.length === 1 ? names[0]! : null, problem: null }
+  const list = names.length ? names.join(', ') : 'none'
+  if (typeof single === 'string') {
+    return { name: single, problem: names.includes(single) ? null : `single: no board named "${single}" (boards: ${list})` }
+  }
+  if (names.length === 1) return { name: names[0]!, problem: null }
+  if (names.length === 0) return { name: null, problem: 'single: no board found' }
+  return { name: names[0]!, problem: `single: true needs exactly one board, found ${names.length} (${list}); name one with single: "${names[0]}" or narrow the boards option` }
+}
+
 export function resolveConfig(user: UserConfig, root: string): ResolvedConfig {
   const base = user.base ?? '/'
   if (!base.startsWith('/') || !base.endsWith('/')) throw new Error(`base must start and end with "/" (got "${base}")`)
@@ -255,11 +286,12 @@ export function resolveConfig(user: UserConfig, root: string): ResolvedConfig {
   const cacheDir = abs(root, user.cacheDir ?? '.kiview/cache')
   return {
     root,
-    title: user.title ?? 'KiCad boards',
+    title: user.title ?? null,
     description: user.description ?? null,
     logo: user.logo ?? null,
     theme: { appearance: user.theme?.appearance ?? 'dark', accent: user.theme?.accent ?? null, vars: user.theme?.vars ?? {} },
     boards: [user.boards ?? '.'].flat(),
+    single: user.single ?? 'auto',
     base,
     outDir: abs(root, user.outDir ?? '.kiview/dist'),
     cacheDir,

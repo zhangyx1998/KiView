@@ -1,6 +1,6 @@
 {
   "name": "@zdv/kiview",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Turn a folder of KiCad projects into a static website: board cards, 3D viewer, layer browser, schematic, BOM, assembly steps and fab downloads.",
   "type": "module",
